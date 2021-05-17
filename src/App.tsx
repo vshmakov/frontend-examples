@@ -34,7 +34,7 @@ class Example {
         return answer === this.solved
     }
 
-    private get pasolved(): number {
+    private get solved(): number {
         switch (this.operation) {
             case Operation.Add:
                 return this.first + this.second

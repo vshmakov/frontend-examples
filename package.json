@@ -2,7 +2,7 @@
     "name": "frontend-examples",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://vshmakov.github.io/frontend-examples",
+    "homepage": "https://vshmakov.github.io/frontend-examples/",
     "dependencies": {
         "@testing-library/jest-dom": "^5.12.0",
         "@testing-library/react": "^11.2.7",
