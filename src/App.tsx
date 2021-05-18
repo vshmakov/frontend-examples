@@ -28,7 +28,7 @@ class App extends React.Component<{}, AppState> {
                     <button type="submit">Answer</button>
                 </form>
                 <ul>
-
+                    <li>Profile: {this.attempt.profile.name}</li>
                 </ul>
             </div>
         )

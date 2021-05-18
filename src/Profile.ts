@@ -1,6 +1,6 @@
 export class Profile {
     public constructor(
-        private readonly name: string,
+        public readonly name: string,
     private readonly examplesCount: number,
     ) {
     }

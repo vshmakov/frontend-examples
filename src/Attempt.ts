@@ -5,7 +5,7 @@ export class Attempt {
     private readonly examples: Example[] = []
 
     public constructor(
-        private readonly profile: Profile
+        public readonly profile: Profile
     ) {
     }
 
