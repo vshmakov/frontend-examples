@@ -1,7 +1,7 @@
-import {Profile} from "./Profile"
-import {Example} from "./Example";
+import {Profile} from "../Profile/Profile"
+import {Example} from "../Example/Example";
 
-export class Attempt {
+export class Task {
     private readonly examples: Example[] = []
 
     public constructor(
@@ -15,5 +15,9 @@ export class Attempt {
 
     public get examplesCount(): number {
         return this.examples.length
+    }
+
+    public get isFinished(): boolean {
+        return this.examplesCount === this.profile.examplesCount
     }
 }

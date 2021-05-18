@@ -1,6 +1,6 @@
-import {ExampleGenerator} from "./ExampleGenerator";
-import {AttemptProvider} from "./AttemptProvider";
-import {ProfileProvider} from "./ProfileProvider";
+import {ExampleGenerator} from "./Example/ExampleGenerator";
+import {ProfileProvider} from "./Profile/ProfileProvider";
+import {TaskProvider} from "./Task/TaskProvider";
 
 export const exampleGenerator = new ExampleGenerator()
-export const attemptProvider = new AttemptProvider(new ProfileProvider())
+export const taskProvider = new TaskProvider(new ProfileProvider())

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Example} from "./Example";
-import {attemptProvider, exampleGenerator} from "./container";
-import {Attempt} from "./Attempt";
+import {Example} from "./Example/Example";
+import {exampleGenerator, taskProvider} from "./container";
+import {Task} from "./Task/Task";
 
 interface AppState {
     example: Example
@@ -9,9 +9,9 @@ interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
-    private attempt: Attempt = attemptProvider.getCurrentOrNewAttempt()
+    private task: Task = taskProvider.getNewTask()
     public readonly state: AppState = {
-        example: exampleGenerator.generate(this.attempt),
+        example: exampleGenerator.generate(this.task),
         answer: '',
     }
 
@@ -19,7 +19,7 @@ class App extends React.Component<{}, AppState> {
         return (
             <div>
                 <form onSubmit={this.submitHandler.bind(this)}>
-                    <h1>Example #{this.attempt.examplesCount}</h1>
+                    <h1>Example #{this.task.examplesCount}</h1>
                     <span>{this.state.example.string} = </span>
                     <input
                         type="text"
@@ -28,7 +28,7 @@ class App extends React.Component<{}, AppState> {
                     <button type="submit">Answer</button>
                 </form>
                 <ul>
-                    <li>Profile: {this.attempt.profile.name}</li>
+                    <li>Profile: {this.task.profile.name}</li>
                 </ul>
             </div>
         )
@@ -49,14 +49,20 @@ class App extends React.Component<{}, AppState> {
             return
         }
 
-        if (this.state.example.isRight(+answer)) {
-            this.setState({
-                example: exampleGenerator.generate(this.attempt)
-            })
+        this.setState({
+            answer: ''
+        })
+
+        if (!this.state.example.isRight(+answer)) {
+            return;
+        }
+
+        if (this.task.isFinished) {
+            this.task = taskProvider.getNewTask()
         }
 
         this.setState({
-            answer: ''
+            example: exampleGenerator.generate(this.task)
         })
     }
 }
