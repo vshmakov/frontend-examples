@@ -5,13 +5,28 @@ import {Task} from "../Task/Task";
 
 export class ExampleGenerator {
     public generate(task: Task): Example {
-        const example = new Example(
+        const previousExample = task.lastExample;
+
+        if (null !== previousExample && !previousExample.hasAnswer) {
+            return previousExample
+        }
+
+        let newExample = new Example(
             random(1, 10),
             random(Operation.Add, Operation.Sub),
             random(1, 10),
-        );
-        task.addExample(example)
+        )
 
-        return example
+        if (null !== previousExample && !previousExample?.isRight) {
+            newExample = new Example(
+                previousExample?.first,
+                previousExample?.operation,
+                previousExample?.second,
+            );
+        }
+
+        task.addExample(newExample)
+
+        return newExample
     }
 }

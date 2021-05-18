@@ -1,6 +1,5 @@
 import {Example} from "./Example";
 import React from "react";
-import {Task} from "../Task/Task";
 import {exampleGenerator, taskProvider} from "../container";
 import {Link} from "react-router-dom";
 
@@ -10,17 +9,18 @@ interface SolveState {
 }
 
 export class Solve extends React.Component<{}, SolveState> {
-    private task: Task = taskProvider.getNewTask()
     public readonly state: SolveState = {
-        example: exampleGenerator.generate(this.task),
+        example: exampleGenerator.generate(taskProvider.getCurrentOrNewTask()),
         answer: '',
     }
 
     public render() {
+        const currentTask = taskProvider.getCurrentOrNewTask()
+
         return (
             <div>
                 <form onSubmit={this.submitHandler.bind(this)}>
-                    <h1>Example #{this.task.examplesCount}</h1>
+                    <h1>Example #{currentTask.rightExamplesCount}</h1>
                     <span>{this.state.example.string} = </span>
                     <input
                         type="text"
@@ -29,8 +29,9 @@ export class Solve extends React.Component<{}, SolveState> {
                     <button type="submit">Answer</button>
                 </form>
                 <ul>
+                    <li>Errors count: {currentTask.wrongExamplesCount}</li>
                     <li>
-                        <div>Profile: {this.task.profile.name}</div>
+                        <div>Profile: {currentTask.profile.name}</div>
                         <div>
                             <Link role="button" to="/profiles">Change</Link>
                         </div>
@@ -59,16 +60,15 @@ export class Solve extends React.Component<{}, SolveState> {
             answer: ''
         })
 
-        if (!this.state.example.isRight(+answer)) {
-            return;
-        }
+        const example = this.state.example;
+        example.answer = +answer
 
-        if (this.task.isFinished) {
-            this.task = taskProvider.getNewTask()
+        if (taskProvider.getCurrentOrNewTask().isFinished) {
+            taskProvider.cleanCurrentTask()
         }
 
         this.setState({
-            example: exampleGenerator.generate(this.task)
+            example: exampleGenerator.generate(taskProvider.getCurrentOrNewTask())
         })
     }
 }

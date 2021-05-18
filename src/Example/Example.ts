@@ -1,11 +1,17 @@
 import {Operation} from "./Operation";
 
 export class Example {
+    public answer: number | null = null
+
     public constructor(
-        private readonly first: number,
-        private readonly operation: Operation,
-        private readonly second: number,
+        public readonly first: number,
+        public readonly operation: Operation,
+        public readonly second: number,
     ) {
+    }
+
+    public get hasAnswer(): boolean {
+        return null !== this.answer
     }
 
     public get string(): string {
@@ -19,8 +25,8 @@ export class Example {
         return `${this.first} ${signs[this.operation]} ${this.second}`
     }
 
-    public isRight(answer: number): boolean {
-        return answer === this.solved
+    public get isRight(): boolean {
+        return this.answer === this.solved
     }
 
     private get solved(): number {
