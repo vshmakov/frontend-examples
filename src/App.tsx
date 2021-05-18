@@ -4,8 +4,8 @@ import {attemptProvider, exampleGenerator} from "./container";
 import {Attempt} from "./Attempt";
 
 interface AppState {
-    answer: string
     example: Example
+    answer: string
 }
 
 class App extends React.Component<{}, AppState> {
@@ -43,8 +43,13 @@ class App extends React.Component<{}, AppState> {
 
     private submitHandler(event: React.FormEvent<HTMLFormElement>): void {
         event.preventDefault()
+        const answer = this.state.answer;
 
-        if (this.state.example.isRight(+this.state.answer)) {
+        if ('' === answer) {
+            return
+        }
+
+        if (this.state.example.isRight(+answer)) {
             this.setState({
                 example: exampleGenerator.generate(this.attempt)
             })
