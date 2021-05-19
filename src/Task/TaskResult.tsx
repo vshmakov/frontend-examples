@@ -1,24 +1,24 @@
 import React from "react";
-import {taskProvider} from "../container";
 import {Task} from "./Task";
 
 interface Props {
+    task: Task
     startNewTask: () => void
 }
 
 export class TaskResult extends React.Component<Props> {
     render() {
-        const currentTask = taskProvider.getCurrentOrNewTask()
+        const task = this.props.task
 
         return (
             <div>
                 <h1>Task result</h1>
                 <ul>
-                    <li>Solved examples count: {currentTask.solvedExamplesCount}</li>
-                    <li>Errors count: {currentTask.wrongExamplesCount}</li>
+                    <li>Solved examples count: {task.solvedExamplesCount}</li>
+                    <li>Errors count: {task.wrongExamplesCount}</li>
                 </ul>
                 <div>
-                    <button onClick={this.clickHandler.bind(this)}>Start new task</button>
+                    <button onClick={this.props.startNewTask}>Start new task</button>
                 </div>
                 <h2>Examples</h2>
                 <table>
@@ -30,7 +30,7 @@ export class TaskResult extends React.Component<Props> {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.showExamples(currentTask)}
+                    {this.showExamples(task)}
                     </tbody>
                 </table>
             </div>
@@ -56,10 +56,5 @@ export class TaskResult extends React.Component<Props> {
         }
 
         return examples
-    }
-
-    private clickHandler(): void {
-        taskProvider.cleanCurrentTask()
-        this.props.startNewTask()
     }
 }
