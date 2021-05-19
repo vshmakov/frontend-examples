@@ -25,7 +25,7 @@ export class ExampleProvider {
             );
         }
 
-        task.addExample(newExample)
+        task.examples.push(newExample)
 
         return newExample
     }

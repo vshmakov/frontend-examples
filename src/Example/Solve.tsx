@@ -1,19 +1,26 @@
 import {Example} from "./Example";
 import React from "react";
 import {exampleProvider, taskProvider} from "../container";
+import {TaskResult} from "../Task/TaskResult";
 
-interface SolveState {
+interface State {
     example: Example
     answer: string
+    showTaskHistory: boolean
 }
 
-export class Solve extends React.Component<{}, SolveState> {
-    public readonly state: SolveState = {
+export class Solve extends React.Component<{}, State> {
+    public readonly state: State = {
         example: exampleProvider.getActualOrNewExample(taskProvider.getCurrentOrNewTask()),
         answer: '',
+        showTaskHistory: false,
     }
 
     public render() {
+        if (this.state.showTaskHistory) {
+            return <TaskResult startNewTask={this.startNewTask.bind(this)}/>
+        }
+
         const currentTask = taskProvider.getCurrentOrNewTask()
 
         return (
@@ -28,12 +35,18 @@ export class Solve extends React.Component<{}, SolveState> {
                     <button type="submit">Answer</button>
                 </form>
                 <ul>
-                    <li>Errors count: {currentTask.wrongExamplesCount}</li>
                     <li>Remained examples count: {currentTask.remainedExamplesCount}</li>
                 </ul>
             </div>
         )
             ;
+    }
+
+    private startNewTask(): void {
+        this.setState({
+            example: exampleProvider.getActualOrNewExample(taskProvider.getCurrentOrNewTask()),
+            showTaskHistory: false,
+        })
     }
 
     private changeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -58,7 +71,11 @@ export class Solve extends React.Component<{}, SolveState> {
         example.answer = +answer
 
         if (taskProvider.getCurrentOrNewTask().isSolved) {
-            taskProvider.cleanCurrentTask()
+            this.setState({
+                showTaskHistory: true
+            })
+
+            return
         }
 
         this.setState({

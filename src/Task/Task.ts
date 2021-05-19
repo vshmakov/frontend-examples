@@ -2,18 +2,14 @@ import {Profile} from "../Profile/Profile"
 import {Example} from "../Example/Example";
 
 export class Task {
-    private readonly examples: Example[] = []
+    public readonly examples: Example[] = []
 
     public constructor(
         public readonly profile: Profile
     ) {
     }
 
-    public addExample(example: Example): void {
-        this.examples.push(example)
-    }
-
-    public get rightExamplesCount(): number {
+        public get rightExamplesCount(): number {
         return this.solvedExamplesCount + this.examples
             .filter((example: Example): boolean => !example.hasAnswer)
             .length
