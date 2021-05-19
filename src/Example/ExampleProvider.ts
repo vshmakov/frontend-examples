@@ -3,8 +3,8 @@ import {random} from "../Random";
 import {Operation} from "./Operation";
 import {Task} from "../Task/Task";
 
-export class ExampleGenerator {
-    public generate(task: Task): Example {
+export class ExampleProvider {
+    public getActualOrNewExample(task: Task): Example {
         const previousExample = task.lastExample;
 
         if (null !== previousExample && !previousExample.hasAnswer) {
@@ -17,7 +17,7 @@ export class ExampleGenerator {
             random(1, 10),
         )
 
-        if (null !== previousExample && !previousExample?.isRight) {
+        if (null !== previousExample && !previousExample?.isSolved) {
             newExample = new Example(
                 previousExample?.first,
                 previousExample?.operation,

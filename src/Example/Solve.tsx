@@ -1,6 +1,6 @@
 import {Example} from "./Example";
 import React from "react";
-import {exampleGenerator, taskProvider} from "../container";
+import {exampleProvider, taskProvider} from "../container";
 import {Link} from "react-router-dom";
 
 interface SolveState {
@@ -10,12 +10,18 @@ interface SolveState {
 
 export class Solve extends React.Component<{}, SolveState> {
     public readonly state: SolveState = {
-        example: exampleGenerator.generate(taskProvider.getCurrentOrNewTask()),
+        example: exampleProvider.getActualOrNewExample(taskProvider.getCurrentOrNewTask()),
         answer: '',
     }
 
     public render() {
         const currentTask = taskProvider.getCurrentOrNewTask()
+const profile = <li>
+    <div>Profile: {currentTask.profile.name}</div>
+    <div>
+        <Link role="button" to="/profiles">Change</Link>
+    </div>
+</li>
 
         return (
             <div>
@@ -30,12 +36,7 @@ export class Solve extends React.Component<{}, SolveState> {
                 </form>
                 <ul>
                     <li>Errors count: {currentTask.wrongExamplesCount}</li>
-                    <li>
-                        <div>Profile: {currentTask.profile.name}</div>
-                        <div>
-                            <Link role="button" to="/profiles">Change</Link>
-                        </div>
-                    </li>
+            <li>Remained examples count: {currentTask.remainedExamplesCount}</li>
                 </ul>
             </div>
         )
@@ -63,12 +64,12 @@ export class Solve extends React.Component<{}, SolveState> {
         const example = this.state.example;
         example.answer = +answer
 
-        if (taskProvider.getCurrentOrNewTask().isFinished) {
+        if (taskProvider.getCurrentOrNewTask().isSolved) {
             taskProvider.cleanCurrentTask()
         }
 
         this.setState({
-            example: exampleGenerator.generate(taskProvider.getCurrentOrNewTask())
+            example: exampleProvider.getActualOrNewExample(taskProvider.getCurrentOrNewTask())
         })
     }
 }

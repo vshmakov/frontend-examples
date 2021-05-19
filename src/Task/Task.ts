@@ -21,18 +21,22 @@ export class Task {
 
     public get wrongExamplesCount(): number {
         return this.examples
-            .filter((example: Example): boolean => example.hasAnswer && !example.isRight)
+            .filter((example: Example): boolean => example.hasAnswer && !example.isSolved)
             .length
     }
 
     public get solvedExamplesCount(): number {
         return this.examples
-            .filter((example: Example): boolean => example.isRight)
+            .filter((example: Example): boolean => example.isSolved)
             .length
     }
 
-    public get isFinished(): boolean {
-        return this.solvedExamplesCount === this.profile.examplesCount
+    public get remainedExamplesCount(): number {
+        return this.profile.examplesCount - this.solvedExamplesCount
+    }
+
+    public get isSolved(): boolean {
+        return 0 === this.remainedExamplesCount
     }
 
     public get lastExample(): Example | null {

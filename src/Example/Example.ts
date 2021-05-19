@@ -25,7 +25,7 @@ export class Example {
         return `${this.first} ${signs[this.operation]} ${this.second}`
     }
 
-    public get isRight(): boolean {
+    public get isSolved(): boolean {
         return this.answer === this.solved
     }
 
