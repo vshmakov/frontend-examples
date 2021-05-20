@@ -1,9 +1,11 @@
 import {Example} from "./Example";
-import {random} from "../Random";
-import {Operation} from "./Operation";
 import {Task} from "../Task/Task";
+import {ExampleGenerator} from "./ExampleGenerator";
 
 export class ExampleProvider {
+    public constructor(private readonly exampleGenerator: ExampleGenerator) {
+    }
+
     public getActualOrNewExample(task: Task): Example {
         const previousExample = task.lastExample;
 
@@ -11,11 +13,7 @@ export class ExampleProvider {
             return previousExample
         }
 
-        let newExample = new Example(
-            random(1, 10),
-            random(Operation.Add, Operation.Sub),
-            random(1, 10),
-        )
+        let newExample = this.exampleGenerator.generate(task.profile)
 
         if (null !== previousExample && !previousExample?.isSolved) {
             newExample = new Example(
