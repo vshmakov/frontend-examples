@@ -2,6 +2,7 @@ import {Example} from "./Example";
 import {Operation} from "./Operation";
 import {Profile} from "../Profile/Profile";
 import {ExampleValues} from "./ExampleValues";
+import {random} from "../Random";
 
 export class ExampleGenerator {
     public generate(profile: Profile): Example {
@@ -20,10 +21,12 @@ export class ExampleGenerator {
         const minResult = 1
         const maxResult = 10
 
-        const minFirst = this.getValueBetween(minValue, minResult - maxValue, maxValue)
-        const maxFirst = this.getValueBetween(maxValue, minFirst, maxResult - minValue)
+        const first = random(minValue, maxValue)
+        const minSecond = this.getValueBetween(minValue, minResult - first, minValue)
+        const maxSecond = this.getValueBetween(maxValue, minSecond, maxResult - first)
+        const second = random(minSecond, maxSecond)
 
-        return new ExampleValues(1, 11)
+        return new ExampleValues(first, second)
     }
 
     private getValueBetween(value: number, min: number, max: number): number {
