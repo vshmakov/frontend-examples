@@ -4,6 +4,7 @@ import {TaskResult} from "../Task/TaskResult";
 import {TaskProvider} from "../Task/TaskProvider";
 import {ExampleProvider} from "./ExampleProvider";
 import {Task} from "../Task/Task";
+import {TaskConfig} from "../Task/TaskConfig";
 
 interface Props {
     taskProvider: TaskProvider
@@ -14,6 +15,7 @@ interface State {
     example: Example
     answer: string
     showTaskHistory: boolean
+    showTaskConfig: boolean
 }
 
 export class Solve extends React.Component<Props, State> {
@@ -21,6 +23,7 @@ export class Solve extends React.Component<Props, State> {
         example: this.getActualOrNewExample(),
         answer: '',
         showTaskHistory: false,
+        showTaskConfig: false,
     }
 
     public render() {
@@ -28,6 +31,10 @@ export class Solve extends React.Component<Props, State> {
 
         if (this.state.showTaskHistory) {
             return <TaskResult task={task} startNewTask={this.startNewTask.bind(this)}/>
+        }
+
+        if (this.state.showTaskConfig) {
+            return <TaskConfig startNewTask={this.startNewTask.bind(this)}/>
         }
 
         return (
@@ -41,9 +48,11 @@ export class Solve extends React.Component<Props, State> {
                         onChange={this.changeHandler.bind(this)}/>
                     <button type="submit">Answer</button>
                 </form>
+                <div>
+                    <button onClick={this.clickHandler.bind(this)}>Change settings</button>
+                </div>
             </div>
         )
-            ;
     }
 
     private startNewTask(): void {
@@ -51,6 +60,13 @@ export class Solve extends React.Component<Props, State> {
         this.setState({
             example: this.getActualOrNewExample(),
             showTaskHistory: false,
+            showTaskConfig: false
+        })
+    }
+
+    private clickHandler(): void {
+        this.setState({
+            showTaskConfig: true
         })
     }
 

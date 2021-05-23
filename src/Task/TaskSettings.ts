@@ -6,5 +6,4 @@ export class TaskSettings {
         public readonly exampleSettings: ExampleSettings
     ) {
     }
-
 }
