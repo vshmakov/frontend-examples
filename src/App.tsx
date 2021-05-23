@@ -4,8 +4,12 @@ import {ExampleProvider} from "./Example/ExampleProvider";
 import {TaskProvider} from "./Task/TaskProvider";
 import {ExampleGenerator} from './Example/ExampleGenerator'
 import {CoefficientGenerator} from "./Example/CoefficientGenerator";
+import {OperationGeneratorCollection} from "./Example/OperationGeneratorCollection";
+import {AddGenerator} from "./Example/AddGenerator";
 
-const exampleGenerator = new ExampleGenerator(new CoefficientGenerator())
+const operationGeneratorCollection = new OperationGeneratorCollection([new AddGenerator()])
+const coefficientGenerator = new CoefficientGenerator()
+const exampleGenerator = new ExampleGenerator(operationGeneratorCollection, coefficientGenerator)
 const exampleProvider = new ExampleProvider(exampleGenerator)
 const taskProvider = new TaskProvider()
 
