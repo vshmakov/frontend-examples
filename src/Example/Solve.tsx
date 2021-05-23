@@ -5,8 +5,10 @@ import {TaskProvider} from "../Task/TaskProvider";
 import {ExampleProvider} from "./ExampleProvider";
 import {Task} from "../Task/Task";
 import {TaskConfig} from "../Task/TaskConfig";
+import {TaskSettingsProvider} from "../Task/TaskSettingsProvider";
 
 interface Props {
+    taskSettingsProvider: TaskSettingsProvider
     taskProvider: TaskProvider
     exampleProvider: ExampleProvider
 }
@@ -27,17 +29,17 @@ export class Solve extends React.Component<Props, State> {
     }
 
     public render() {
+        if (this.state.showTaskConfig) {
+            return <TaskConfig startNewTask={this.startNewTask.bind(this)} taskSettingsProvider={this.props.taskSettingsProvider}/>
+        }
+
         const task = this.getCurrentOrNewTask()
 
         if (this.state.showTaskHistory) {
             return <TaskResult task={task} startNewTask={this.startNewTask.bind(this)}/>
         }
 
-        if (this.state.showTaskConfig) {
-            return <TaskConfig startNewTask={this.startNewTask.bind(this)}/>
-        }
-
-        return (
+                return (
             <div>
                 <form onSubmit={this.submitHandler.bind(this)}>
                     <h1>Example #{task.rightExamplesCount} from {task.taskSettings.examplesCount}</h1>
