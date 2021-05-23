@@ -33,7 +33,7 @@ export class Solve extends React.Component<Props, State> {
         return (
             <div>
                 <form onSubmit={this.submitHandler.bind(this)}>
-                    <h1>Example #{task.rightExamplesCount} from {task.profile.examplesCount}</h1>
+                    <h1>Example #{task.rightExamplesCount} from {task.taskSettings.examplesCount}</h1>
                     <span>{this.state.example.string} = </span>
                     <input
                         type="text"

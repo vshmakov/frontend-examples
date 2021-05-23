@@ -13,7 +13,7 @@ export class ExampleProvider {
             return previousExample
         }
 
-        let newExample = this.exampleGenerator.generate(task.profile)
+        let newExample = this.exampleGenerator.generate(task)
 
         if (null !== previousExample && !previousExample?.isSolved) {
             newExample = new Example(

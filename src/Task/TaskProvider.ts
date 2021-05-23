@@ -1,16 +1,14 @@
-import {ProfileProvider} from "../Profile/ProfileProvider";
 import {Task} from "./Task";
+import {TaskSettings} from './TaskSettings'
+import {ExampleSettings} from '../Example/ExampleSettings'
 
 export class TaskProvider {
     private currentTask: Task | null = null
 
-    public constructor(private readonly profileProvider: ProfileProvider) {
-    }
-
     public getCurrentOrNewTask(): Task {
         if (null == this.currentTask) {
             this.currentTask = new Task(
-                this.profileProvider.getCurrentProfile()
+                new TaskSettings(20, new ExampleSettings(1, 9, 1, 10))
             )
         }
 

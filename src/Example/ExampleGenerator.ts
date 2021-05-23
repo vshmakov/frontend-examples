@@ -1,32 +1,44 @@
 import {Example} from "./Example";
 import {Operation} from "./Operation";
-import {Profile} from "../Profile/Profile";
 import {ExampleValues} from "./ExampleValues";
-import {random} from "../Random";
+import {random, randomFlag} from "../Random";
+import {ExampleSettings} from "./ExampleSettings";
+import {Task} from "../Task/Task";
+import {CoefficientGenerator} from "./CoefficientGenerator";
 
 export class ExampleGenerator {
-    public generate(profile: Profile): Example {
-        const exampleValues = this.add()
-
-        return new Example(
-            exampleValues.first,
-            Operation.Add,
-            exampleValues.second,
-        )
+    public constructor(private readonly coefficientGenerator: CoefficientGenerator) {
     }
 
-    private add(): ExampleValues {
-        const minValue = 1
-        const maxValue = 10
-        const minResult = 1
-        const maxResult = 10
+    public generate(task: Task): Example {
+        let example = Example.createFromValues(this.add(task.taskSettings.exampleSettings), Operation.Add)
 
-        const first = random(minValue, maxValue)
-        const minSecond = this.getValueBetween(minValue, minResult - first, minValue)
-        const maxSecond = this.getValueBetween(maxValue, minSecond, maxResult - first)
+        if (randomFlag(15)) {
+            return example
+        }
+
+        let maxCoefficient = 0
+
+        for (let number = 1; number <= 10; number++) {
+            const nextExample = Example.createFromValues(this.add(task.taskSettings.exampleSettings), Operation.Add)
+            const nextCoefficient = this.coefficientGenerator.getUniqueCoefficient(nextExample, task)
+
+            if (nextCoefficient > maxCoefficient) {
+                example = nextExample
+                maxCoefficient = nextCoefficient
+            }
+        }
+
+        return example
+    }
+
+    private add(settings: ExampleSettings): ExampleValues {
+        const first = random(settings.minValue, settings.maxValue)
+        const minSecond = this.getValueBetween(settings.minValue, settings.minResult - first, settings.minValue)
+        const maxSecond = this.getValueBetween(settings.maxValue, minSecond, settings.maxResult - first)
         const second = random(minSecond, maxSecond)
 
-        return new ExampleValues(first, second)
+        return randomFlag(60) ? new ExampleValues(first, second) : new ExampleValues(second, first)
     }
 
     private getValueBetween(value: number, min: number, max: number): number {

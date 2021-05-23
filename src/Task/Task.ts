@@ -1,15 +1,15 @@
-import {Profile} from "../Profile/Profile"
 import {Example} from "../Example/Example";
+import {TaskSettings} from "./TaskSettings";
 
 export class Task {
     public readonly examples: Example[] = []
 
     public constructor(
-        public readonly profile: Profile
+        public readonly taskSettings: TaskSettings
     ) {
     }
 
-        public get rightExamplesCount(): number {
+    public get rightExamplesCount(): number {
         return this.solvedExamplesCount + this.examples
             .filter((example: Example): boolean => !example.hasAnswer)
             .length
@@ -22,13 +22,16 @@ export class Task {
     }
 
     public get solvedExamplesCount(): number {
+        return this.solvedExamples.length
+    }
+
+    public get solvedExamples(): Example[] {
         return this.examples
             .filter((example: Example): boolean => example.isSolved)
-            .length
     }
 
     public get remainedExamplesCount(): number {
-        return this.profile.examplesCount - this.solvedExamplesCount
+        return this.taskSettings.examplesCount - this.solvedExamplesCount
     }
 
     public get isSolved(): boolean {

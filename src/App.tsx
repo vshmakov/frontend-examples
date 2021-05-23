@@ -1,12 +1,13 @@
 import React from 'react';
 import {Solve} from "./Example/Solve";
 import {ExampleProvider} from "./Example/ExampleProvider";
-import {ProfileProvider} from "./Profile/ProfileProvider";
 import {TaskProvider} from "./Task/TaskProvider";
 import {ExampleGenerator} from './Example/ExampleGenerator'
+import {CoefficientGenerator} from "./Example/CoefficientGenerator";
 
-const exampleProvider = new ExampleProvider(new ExampleGenerator())
-const taskProvider = new TaskProvider(new ProfileProvider())
+const exampleGenerator = new ExampleGenerator(new CoefficientGenerator())
+const exampleProvider = new ExampleProvider(exampleGenerator)
+const taskProvider = new TaskProvider()
 
 export default function App() {
     return (

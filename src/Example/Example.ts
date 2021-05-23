@@ -1,4 +1,5 @@
 import {Operation} from "./Operation";
+import {ExampleValues} from "./ExampleValues";
 
 export class Example {
     public answer: number | null = null
@@ -8,6 +9,10 @@ export class Example {
         public readonly operation: Operation,
         public readonly second: number,
     ) {
+    }
+
+    public static createFromValues(exampleValues: ExampleValues, operation: Operation): Example {
+        return new Example(exampleValues.first, operation, exampleValues.second)
     }
 
     public get hasAnswer(): boolean {
@@ -26,10 +31,10 @@ export class Example {
     }
 
     public get isSolved(): boolean {
-        return this.answer === this.solved
+        return this.answer === this.solution
     }
 
-    private get solved(): number {
+    public get solution(): number {
         switch (this.operation) {
             case Operation.Add:
                 return this.first + this.second
