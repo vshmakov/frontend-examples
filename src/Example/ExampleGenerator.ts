@@ -14,7 +14,7 @@ export class ExampleGenerator {
 
     public generate(task: Task): Example {
         const generator = this.operationGeneratorCollection.getGenerator(Operation.Add)
-        const exampleSettings = task.taskSettings.exampleSettings
+        const exampleSettings = task.taskSettings.addSettings
         let example = generator.generate(exampleSettings)
 
         if (randomFlag(15)) {

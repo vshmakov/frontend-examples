@@ -1,16 +1,16 @@
 import {Task} from "./Task";
-import {TaskSettingsProvider} from "./TaskSettingsProvider";
+import {TaskSettingsManager} from "./TaskSettingsManager";
 
 export class TaskProvider {
     private currentTask: Task | null = null
 
-    public constructor(private readonly taskSettingsProvider: TaskSettingsProvider) {
+    public constructor(private readonly taskSettingsManager: TaskSettingsManager) {
     }
 
     public getCurrentOrNewTask(): Task {
         if (null == this.currentTask) {
             this.currentTask = new Task(
-                this.taskSettingsProvider.getCurrentSettings()
+                this.taskSettingsManager.getCurrentSettings()
             )
         }
 
