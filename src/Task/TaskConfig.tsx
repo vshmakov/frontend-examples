@@ -79,10 +79,17 @@ export class TaskConfig extends React.Component<Props> {
     }
 
     private changeExamplesCountHandler(event: React.ChangeEvent<HTMLInputElement>): void {
-        this.state.taskSettings.examplesCount = +event.target.value
+        const taskSettings = this.getNewTaskSettings()
+        taskSettings.examplesCount = +event.target.value
         this.setState({
-            taskSettings: this.state.taskSettings
+            taskSettings: taskSettings
         })
+    }
+
+    private getNewTaskSettings(): TaskSettings {
+        const taskSettings = this.state.taskSettings
+
+        return new TaskSettings(taskSettings.examplesCount, taskSettings.addSettings)
     }
 
     private getChangeSettingsHandler(name: keyof ExampleSettings): (event: React.ChangeEvent<HTMLInputElement>) => void {
@@ -90,9 +97,10 @@ export class TaskConfig extends React.Component<Props> {
     }
 
     private changeSettingsHandler(event: React.ChangeEvent<HTMLInputElement>, name: keyof ExampleSettings): void {
-        this.state.taskSettings.addSettings[name] = +event.target.value
+        const taskSettings = this.getNewTaskSettings()
+        taskSettings.addSettings[name] = +event.target.value
         this.setState({
-            taskSettings: this.state.taskSettings
+            taskSettings: taskSettings
         })
     }
 
