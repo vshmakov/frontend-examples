@@ -1,9 +1,9 @@
 export class ExampleSettings {
     public constructor(
-        public readonly minValue: number,
-        public readonly maxValue: number,
-        public readonly minResult: number,
-        public readonly maxResult: number,
+        public minValue: number,
+        public maxValue: number,
+        public minResult: number,
+        public maxResult: number,
     ) {
     }
 }

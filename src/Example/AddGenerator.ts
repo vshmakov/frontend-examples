@@ -4,6 +4,7 @@ import {ExampleSettings} from "./ExampleSettings";
 import {ExampleValues} from "./ExampleValues";
 import {random, randomFlag} from "../Random";
 import {Example} from "./Example";
+import {getValueBetween} from "./NumberManipulator";
 
 export class AddGenerator implements OperationGenerator {
     public readonly operation: Operation = Operation.Add
@@ -14,26 +15,10 @@ export class AddGenerator implements OperationGenerator {
 
     private generateValues(settings: ExampleSettings): ExampleValues {
         const first = random(settings.minValue, settings.maxValue)
-        const minSecond = this.getValueBetween(settings.minValue, settings.minResult - first, settings.minValue)
-        const maxSecond = this.getValueBetween(settings.maxValue, minSecond, settings.maxResult - first)
+        const minSecond = getValueBetween(settings.minValue, settings.minResult - first, settings.minValue)
+        const maxSecond = getValueBetween(settings.maxValue, minSecond, settings.maxResult - first)
         const second = random(minSecond, maxSecond)
 
         return randomFlag(60) ? new ExampleValues(first, second) : new ExampleValues(second, first)
-    }
-
-    private getValueBetween(value: number, min: number, max: number): number {
-        if (min > max) {
-            throw new DOMException(`${min} is greater than ${max}`)
-        }
-
-        if (value < min) {
-            return min
-        }
-
-        if (value > max) {
-            return max
-        }
-
-        return value
     }
 }
