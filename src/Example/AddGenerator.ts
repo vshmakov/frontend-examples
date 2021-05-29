@@ -15,7 +15,7 @@ export class AddGenerator implements OperationGenerator {
 
     private generateValues(settings: ExampleSettings): ExampleValues {
         const first = random(settings.minValue, settings.maxValue)
-        const minSecond = getValueBetween(settings.minValue, settings.minResult - first, settings.minValue)
+        const minSecond = getValueBetween(settings.minValue, settings.minResult - first, settings.maxResult - first)
         const maxSecond = getValueBetween(settings.maxValue, minSecond, settings.maxResult - first)
         const second = random(minSecond, maxSecond)
 

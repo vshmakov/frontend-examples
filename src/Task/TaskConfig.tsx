@@ -2,6 +2,7 @@ import React from "react";
 import {TaskSettingsManager} from "./TaskSettingsManager";
 import {TaskSettings} from "./TaskSettings";
 import {ExampleSettings} from "../Example/ExampleSettings";
+import {SettingInput} from "./SettingInput";
 
 interface Props {
     taskSettingsManager: TaskSettingsManager
@@ -45,31 +46,19 @@ export class TaskConfig extends React.Component<Props> {
                     <tr>
                         <th>Value</th>
                         <td>
-                            <input
-                                type="number"
-                                value={addSettings.minValue}
-                                onChange={this.getChangeSettingsHandler('minValue')}/>
+                            <SettingInput exampleSettings={addSettings} name={'minValue'}/>
                         </td>
                         <td>
-                            <input
-                                type="number"
-                                value={addSettings.maxValue}
-                                onChange={this.getChangeSettingsHandler('maxValue')}/>
+                            <SettingInput exampleSettings={addSettings} name={'maxValue'}/>
                         </td>
                     </tr>
                     <tr>
                         <th>Result</th>
                         <td>
-                            <input
-                                type="number"
-                                value={addSettings.minResult}
-                                onChange={this.getChangeSettingsHandler('minResult')}/>
+                            <SettingInput exampleSettings={addSettings} name={'minResult'}/>
                         </td>
                         <td>
-                            <input
-                                type="number"
-                                value={addSettings.maxResult}
-                                onChange={this.getChangeSettingsHandler('maxResult')}/>
+                            <SettingInput exampleSettings={addSettings} name={'maxResult'}/>
                         </td>
                     </tr>
                     </tbody>
@@ -92,19 +81,7 @@ export class TaskConfig extends React.Component<Props> {
         return new TaskSettings(taskSettings.examplesCount, taskSettings.addSettings)
     }
 
-    private getChangeSettingsHandler(name: keyof ExampleSettings): (event: React.ChangeEvent<HTMLInputElement>) => void {
-        return (event: React.ChangeEvent<HTMLInputElement>): void => this.changeSettingsHandler(event, name)
-    }
-
-    private changeSettingsHandler(event: React.ChangeEvent<HTMLInputElement>, name: keyof ExampleSettings): void {
-        const taskSettings = this.getNewTaskSettings()
-        taskSettings.addSettings[name] = +event.target.value
-        this.setState({
-            taskSettings: taskSettings
-        })
-    }
-
-    private clickHandler(): void {
+            private clickHandler(): void {
         this.props.taskSettingsManager.saveTaskSettings(this.state.taskSettings)
         this.props.startNewTask()
     }

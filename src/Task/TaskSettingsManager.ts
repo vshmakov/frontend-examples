@@ -33,7 +33,7 @@ export class TaskSettingsManager {
         const addSettings = taskSettings.addSettings
 
         addSettings.minValue = getValueLessThan(addSettings.minValue, addSettings.maxValue)
-        addSettings.minResult = getValueBetween(addSettings.minResult, addSettings.minValue * 2, addSettings.maxValue * 2)
-        addSettings.maxResult = getValueBetween(addSettings.maxResult, addSettings.minValue * 2, addSettings.maxValue * 2)
+        addSettings.minResult = getValueBetween(addSettings.minResult, addSettings.minValue * 2, addSettings.minValue + addSettings.maxValue)
+        addSettings.maxResult = getValueBetween(addSettings.maxResult, addSettings.minValue + addSettings.maxValue, addSettings.maxValue * 2)
     }
 }
