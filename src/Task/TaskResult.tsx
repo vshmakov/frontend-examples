@@ -1,7 +1,9 @@
 import React from "react";
 import {Task} from "./Task";
+import {RatingGenerator} from "./RatingGenerator";
 
 interface Props {
+    ratingGenerator:RatingGenerator
     task: Task
     startNewTask: () => void
 }
@@ -19,6 +21,7 @@ export class TaskResult extends React.Component<Props> {
                 <ul>
                     <li>Solved examples count: {task.solvedExamplesCount}</li>
                     <li>Errors count: {task.wrongExamplesCount}</li>
+                    <li>Rating: {this.props.ratingGenerator.getRating(task)}</li>
                 </ul>
                 <h2>Examples</h2>
                 <table>

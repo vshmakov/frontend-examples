@@ -6,10 +6,12 @@ import {ExampleProvider} from "./ExampleProvider";
 import {Task} from "../Task/Task";
 import {TaskConfig} from "../Task/TaskConfig";
 import {TaskSettingsManager} from "../Task/TaskSettingsManager";
+import {RatingGenerator} from "../Task/RatingGenerator";
 
 interface Props {
     taskSettingsManager: TaskSettingsManager
     taskProvider: TaskProvider
+    ratingGenerator:RatingGenerator
     exampleProvider: ExampleProvider
 }
 
@@ -36,13 +38,13 @@ export class Solve extends React.Component<Props, State> {
         const task = this.getCurrentOrNewTask()
 
         if (this.state.showTaskHistory) {
-            return <TaskResult task={task} startNewTask={this.startNewTask.bind(this)}/>
+            return <TaskResult ratingGenerator={this.props.ratingGenerator} task={task} startNewTask={this.startNewTask.bind(this)}/>
         }
 
                 return (
             <div>
                 <form onSubmit={this.submitHandler.bind(this)}>
-                    <h1>Example #{task.rightExamplesCount} from {task.taskSettings.examplesCount}</h1>
+                    <h1>Example #{task.currentExampleNumber} from {task.taskSettings.examplesCount}</h1>
                     <span>{this.state.example.string} = </span>
                     <input
                         type="text"

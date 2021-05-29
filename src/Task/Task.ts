@@ -9,10 +9,14 @@ export class Task {
     ) {
     }
 
-    public get rightExamplesCount(): number {
+    public get currentExampleNumber(): number {
         return this.solvedExamplesCount + this.examples
             .filter((example: Example): boolean => !example.hasAnswer)
             .length
+    }
+
+    public get rightExamplesCount(): number {
+        return this.solvedExamplesCount - this.wrongExamplesCount
     }
 
     public get wrongExamplesCount(): number {
