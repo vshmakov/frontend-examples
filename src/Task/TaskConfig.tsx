@@ -1,7 +1,6 @@
 import React from "react";
 import {TaskSettingsManager} from "./TaskSettingsManager";
 import {TaskSettings} from "./TaskSettings";
-import {ExampleSettings} from "../Example/ExampleSettings";
 import {SettingInput} from "./SettingInput";
 
 interface Props {
@@ -81,7 +80,7 @@ export class TaskConfig extends React.Component<Props> {
         return new TaskSettings(taskSettings.examplesCount, taskSettings.addSettings)
     }
 
-            private clickHandler(): void {
+    private clickHandler(): void {
         this.props.taskSettingsManager.saveTaskSettings(this.state.taskSettings)
         this.props.startNewTask()
     }

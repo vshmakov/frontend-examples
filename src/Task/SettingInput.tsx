@@ -1,6 +1,4 @@
 import React from "react";
-import {TaskSettingsManager} from "./TaskSettingsManager";
-import {TaskSettings} from "./TaskSettings";
 import {ExampleSettings} from "../Example/ExampleSettings";
 
 interface Props {
@@ -18,13 +16,13 @@ export class SettingInput extends React.Component<Props> {
     }
 
     render() {
-    return(
-        <input
-            type="number"
-            value={this.state.value}
-            onChange={this.changeHandler.bind(this)}
-        />
-    )
+        return (
+            <input
+                type="number"
+                value={this.state.value}
+                onChange={this.changeHandler.bind(this)}
+            />
+        )
     }
 
     private changeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
