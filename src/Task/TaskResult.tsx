@@ -1,6 +1,7 @@
 import React from "react";
 import {Task} from "./Task";
 import {RatingGenerator} from "./RatingGenerator";
+import {StartNewTaskButton} from "./StartNewTaskButton";
 
 interface Props {
     ratingGenerator:RatingGenerator
@@ -15,7 +16,7 @@ export class TaskResult extends React.Component<Props> {
         return (
             <div>
                 <div>
-                    <button onClick={this.props.startNewTask}>Start new task</button>
+                    <StartNewTaskButton clickHandler={this.props.startNewTask}/>
                 </div>
                 <h1>Task result</h1>
                 <ul>

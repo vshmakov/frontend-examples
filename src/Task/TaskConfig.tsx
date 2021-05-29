@@ -2,6 +2,7 @@ import React from "react";
 import {TaskSettingsManager} from "./TaskSettingsManager";
 import {TaskSettings} from "./TaskSettings";
 import {SettingInput} from "./SettingInput";
+import {StartNewTaskButton} from "./StartNewTaskButton";
 
 interface Props {
     taskSettingsManager: TaskSettingsManager
@@ -24,7 +25,7 @@ export class TaskConfig extends React.Component<Props> {
         return (
             <div>
                 <div>
-                    <button onClick={this.clickHandler.bind(this)}>Start new task</button>
+                    <StartNewTaskButton clickHandler={this.clickHandler.bind(this)}/>
                 </div>
                 <h1>Task settings</h1>
                 <div>
