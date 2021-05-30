@@ -16,7 +16,7 @@ export class TaskResult extends React.Component<Props> {
         return (
             <div>
                 <div>
-                    <StartNewTaskButton clickHandler={this.props.startNewTask}/>
+                    <StartNewTaskButton onClick={this.props.startNewTask}/>
                 </div>
                 <h1>Task result</h1>
                 <ul>

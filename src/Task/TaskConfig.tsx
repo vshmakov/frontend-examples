@@ -1,8 +1,9 @@
 import React from "react";
 import {TaskSettingsManager} from "./TaskSettingsManager";
 import {TaskSettings} from "./TaskSettings";
-import {SettingInput} from "./SettingInput";
 import {StartNewTaskButton} from "./StartNewTaskButton";
+import {OperationSettings} from "./OperationSettings";
+import {Operation} from "../Example/Operation";
 
 interface Props {
     taskSettingsManager: TaskSettingsManager
@@ -13,19 +14,18 @@ interface State {
     taskSettings: TaskSettings
 }
 
-export class TaskConfig extends React.Component<Props> {
+export class TaskConfig extends React.Component<Props, State> {
     public readonly state: State = {
         taskSettings: this.getCurrentTaskSettings()
     }
 
-    render() {
+    public render() {
         const taskSettings = this.state.taskSettings;
-        const addSettings = taskSettings.addSettings
 
         return (
             <div>
                 <div>
-                    <StartNewTaskButton clickHandler={this.clickHandler.bind(this)}/>
+                    <StartNewTaskButton onClick={this.clickHandler.bind(this)}/>
                 </div>
                 <h1>Task settings</h1>
                 <div>
@@ -34,35 +34,7 @@ export class TaskConfig extends React.Component<Props> {
                         value={taskSettings.examplesCount}
                         onChange={this.changeExamplesCountHandler.bind(this)}/>
                 </div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Minimum</th>
-                        <th>Maximum</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th>Value</th>
-                        <td>
-                            <SettingInput exampleSettings={addSettings} name={'minValue'}/>
-                        </td>
-                        <td>
-                            <SettingInput exampleSettings={addSettings} name={'maxValue'}/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Result</th>
-                        <td>
-                            <SettingInput exampleSettings={addSettings} name={'minResult'}/>
-                        </td>
-                        <td>
-                            <SettingInput exampleSettings={addSettings} name={'maxResult'}/>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+<OperationSettings baseOperation={Operation.Add} taskSettings={taskSettings} exampleSettings={taskSettings.addSettings}/>
             </div>
         )
     }
@@ -78,7 +50,7 @@ export class TaskConfig extends React.Component<Props> {
     private getNewTaskSettings(): TaskSettings {
         const taskSettings = this.state.taskSettings
 
-        return new TaskSettings(taskSettings.examplesCount, taskSettings.addSettings)
+        return new TaskSettings(taskSettings.examplesCount, taskSettings.operations, taskSettings.addSettings)
     }
 
     private clickHandler(): void {
