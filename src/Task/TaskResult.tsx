@@ -18,19 +18,19 @@ export class TaskResult extends React.Component<Props> {
                 <div>
                     <StartNewTaskButton onClick={this.props.startNewTask}/>
                 </div>
-                <h1>Task result</h1>
+                <h1>Результаты задания</h1>
                 <ul>
-                    <li>Solved examples count: {task.solvedExamplesCount}</li>
-                    <li>Errors count: {task.wrongExamplesCount}</li>
-                    <li>Rating: {this.props.ratingGenerator.getRating(task)}</li>
+                    <li>Решено примеров: {task.solvedExamplesCount}</li>
+                    <li>Ошибок: {task.wrongExamplesCount}</li>
+                    <li>Оценка: {this.props.ratingGenerator.getRating(task)}</li>
                 </ul>
-                <h2>Examples</h2>
+                <h2>Примеры</h2>
                 <table>
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Example</th>
-                        <th>Answer</th>
+                        <th>№</th>
+                        <th>Пример</th>
+                        <th>Ответ</th>
                     </tr>
                     </thead>
                     <tbody>

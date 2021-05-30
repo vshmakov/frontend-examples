@@ -29,8 +29,8 @@ export class TaskConfig extends React.Component<Props, State> {
                 <div>
                     <StartNewTaskButton onClick={this.clickHandler.bind(this)}/>
                 </div>
-                <h1>Task settings</h1>
-                <div>
+                <h1>Настройки задания</h1>
+                Количество примеров: <div>
                     <input
                         type="number"
                         value={this.state.examplesCount}

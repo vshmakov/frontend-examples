@@ -44,16 +44,18 @@ export class Solve extends React.Component<Props, State> {
                 return (
             <div>
                 <form onSubmit={this.submitHandler.bind(this)}>
-                    <h1>Example #{task.currentExampleNumber} from {task.taskSettings.examplesCount}</h1>
+                    <h1>Пример №{task.currentExampleNumber} из {task.taskSettings.examplesCount}</h1>
                     <span>{this.state.example.string} = </span>
                     <input
                         type="text"
                         value={this.state.answer}
                         onChange={this.changeHandler.bind(this)}/>
-                    <button type="submit">Answer</button>
+                    <button type="submit">Ответить</button>
                 </form>
                 <div>
-                    <button onClick={this.clickHandler.bind(this)}>Change settings</button>
+                    <button onClick={this.clickHandler.bind(this)}>
+                        Изменить настройки
+                    </button>
                 </div>
             </div>
         )

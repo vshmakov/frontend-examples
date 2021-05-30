@@ -33,7 +33,7 @@ export class OperationSettings extends React.Component<Props, State> {
                 </div>
                 <div>
                     <button onClick={(): void => this.setState({isSettingsOpened: !this.state.isSettingsOpened})}>
-                        {!this.state.isSettingsOpened ? 'Open settings' : 'Hide settings'}
+                        {!this.state.isSettingsOpened ? "Открыть детальные настройки" : "Спрятать"}
                     </button>
                 </div>
                 {this.renderSettings(this.props.exampleSettings)}
@@ -47,13 +47,13 @@ export class OperationSettings extends React.Component<Props, State> {
                 <thead>
                 <tr>
                     <th></th>
-                    <th>Minimum</th>
-                    <th>Maximum</th>
+                    <th>Минимум</th>
+                    <th>Максимум</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <th>Value</th>
+                    <th>Значение</th>
                     <td>
                         <SettingInput exampleSettings={exampleSettings} name='minValue'/>
                     </td>
@@ -62,7 +62,7 @@ export class OperationSettings extends React.Component<Props, State> {
                     </td>
                 </tr>
                 <tr>
-                    <th>Result</th>
+                    <th>Результат</th>
                     <td>
                         <SettingInput exampleSettings={exampleSettings} name='minResult'/>
                     </td>
@@ -77,10 +77,10 @@ export class OperationSettings extends React.Component<Props, State> {
 
     private renderOperationCheckbox(operation: Operation) {
         const operationNames = {
-            [Operation.Add]: 'Add',
-            [Operation.Sub]: 'Sub',
-            [Operation.Mult]: 'Mult',
-            [Operation.Div]: 'Div',
+            [Operation.Add]: 'Сложение',
+            [Operation.Sub]: 'Вычитание',
+            [Operation.Mult]: 'Умножение',
+            [Operation.Div]: 'Деление',
         }
 
         return (
