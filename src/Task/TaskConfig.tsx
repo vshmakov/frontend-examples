@@ -36,8 +36,10 @@ export class TaskConfig extends React.Component<Props, State> {
                         value={this.state.examplesCount}
                         onChange={this.changeExamplesCountHandler.bind(this)}/>
                 </div>
-                <OperationSettings baseOperation={Operation.Add} taskSettings={taskSettings}
-                                   exampleSettings={taskSettings.addSettings}/>
+                <OperationSettings
+                    baseOperation={Operation.Add}
+                    taskSettings={taskSettings}
+                    exampleSettings={taskSettings.addSettings}/>
             </div>
         )
     }

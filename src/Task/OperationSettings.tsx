@@ -11,16 +11,17 @@ interface Props {
 }
 
 interface State {
+    isSettingsOpened: boolean
     taskSettings: TaskSettings
 }
 
 export class OperationSettings extends React.Component<Props, State> {
     public readonly state: State = {
+        isSettingsOpened: false,
         taskSettings: this.props.taskSettings
     }
 
     public render() {
-        const exampleSettings = this.props.exampleSettings
         const baseOperation = this.props.baseOperation
         const operationCheckboxes = [baseOperation, baseOperation + 1]
             .map(this.renderOperationCheckbox.bind(this))
@@ -30,36 +31,47 @@ export class OperationSettings extends React.Component<Props, State> {
                 <div>
                     {operationCheckboxes}
                 </div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Minimum</th>
-                        <th>Maximum</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th>Value</th>
-                        <td>
-                            <SettingInput exampleSettings={exampleSettings} name='minValue'/>
-                        </td>
-                        <td>
-                            <SettingInput exampleSettings={exampleSettings} name='maxValue'/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Result</th>
-                        <td>
-                            <SettingInput exampleSettings={exampleSettings} name='minResult'/>
-                        </td>
-                        <td>
-                            <SettingInput exampleSettings={exampleSettings} name='maxResult'/>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div>
+                    <button onClick={(): void => this.setState({isSettingsOpened: !this.state.isSettingsOpened})}>
+                        {!this.state.isSettingsOpened ? 'Open settings' : 'Hide settings'}
+                    </button>
+                </div>
+                {this.renderSettings(this.props.exampleSettings)}
             </div>
+        )
+    }
+
+    private renderSettings(exampleSettings: ExampleSettings) {
+        return !this.state.isSettingsOpened ? '' : (
+            <table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Minimum</th>
+                    <th>Maximum</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Value</th>
+                    <td>
+                        <SettingInput exampleSettings={exampleSettings} name='minValue'/>
+                    </td>
+                    <td>
+                        <SettingInput exampleSettings={exampleSettings} name='maxValue'/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Result</th>
+                    <td>
+                        <SettingInput exampleSettings={exampleSettings} name='minResult'/>
+                    </td>
+                    <td>
+                        <SettingInput exampleSettings={exampleSettings} name='maxResult'/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         )
     }
 
