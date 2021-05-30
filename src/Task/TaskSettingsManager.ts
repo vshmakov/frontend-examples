@@ -3,11 +3,11 @@ import {TaskSettings} from "./TaskSettings";
 import {getValueBetween, getValueLessThan} from "../Example/NumberManipulator";
 import {Operation} from "../Example/Operation";
 
-export class TaskSettingsManager {
-    private readonly storageKey = 'task-settings';
+const storageKey = 'task-settings-v1';
 
-    public getCurrentSettings(): TaskSettings {
-        const item = localStorage.getItem(this.storageKey)
+export class TaskSettingsManager {
+        public getCurrentSettings(): TaskSettings {
+        const item = localStorage.getItem(storageKey)
 
         if (null === item) {
             const exampleSettings = new ExampleSettings(1, 9, 1, 10)
@@ -27,12 +27,12 @@ export class TaskSettingsManager {
 
     public saveTaskSettings(taskSettings: TaskSettings): void {
         this.normalize(taskSettings)
-        localStorage.setItem(this.storageKey, JSON.stringify(taskSettings))
+        localStorage.setItem(storageKey, JSON.stringify(taskSettings))
     }
 
     private normalize(taskSettings: TaskSettings): void {
         if (taskSettings.examplesCount < 1) {
-            taskSettings.examplesCount = 1
+            taskSettings.examplesCount = 10
         }
 
         if (0===taskSettings.operations.length){

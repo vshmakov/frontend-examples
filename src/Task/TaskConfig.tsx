@@ -11,11 +11,13 @@ interface Props {
 }
 
 interface State {
+    examplesCount: string
     taskSettings: TaskSettings
 }
 
 export class TaskConfig extends React.Component<Props, State> {
     public readonly state: State = {
+        examplesCount: this.getCurrentTaskSettings().examplesCount.toString(),
         taskSettings: this.getCurrentTaskSettings()
     }
 
@@ -31,18 +33,21 @@ export class TaskConfig extends React.Component<Props, State> {
                 <div>
                     <input
                         type="number"
-                        value={taskSettings.examplesCount}
+                        value={this.state.examplesCount}
                         onChange={this.changeExamplesCountHandler.bind(this)}/>
                 </div>
-<OperationSettings baseOperation={Operation.Add} taskSettings={taskSettings} exampleSettings={taskSettings.addSettings}/>
+                <OperationSettings baseOperation={Operation.Add} taskSettings={taskSettings}
+                                   exampleSettings={taskSettings.addSettings}/>
             </div>
         )
     }
 
     private changeExamplesCountHandler(event: React.ChangeEvent<HTMLInputElement>): void {
         const taskSettings = this.getNewTaskSettings()
-        taskSettings.examplesCount = +event.target.value
+        const value = event.target.value
+        taskSettings.examplesCount = +value
         this.setState({
+            examplesCount: value,
             taskSettings: taskSettings
         })
     }

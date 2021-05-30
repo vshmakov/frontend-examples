@@ -8,8 +8,13 @@ import {CoefficientGenerator} from "./Example/CoefficientGenerator";
 import {OperationGeneratorCollection} from "./Example/OperationGeneratorCollection";
 import {AddGenerator} from "./Example/AddGenerator";
 import {RatingGenerator} from "./Task/RatingGenerator";
+import {RevertGenerator} from "./Example/RevertGenerator";
 
-const operationGeneratorCollection = new OperationGeneratorCollection([new AddGenerator()])
+const addGenerator = new AddGenerator()
+const operationGeneratorCollection = new OperationGeneratorCollection([
+    addGenerator,
+    new RevertGenerator(addGenerator),
+])
 const coefficientGenerator = new CoefficientGenerator()
 const exampleGenerator = new ExampleGenerator(operationGeneratorCollection, coefficientGenerator)
 const exampleProvider = new ExampleProvider(exampleGenerator)

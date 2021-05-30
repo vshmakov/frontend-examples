@@ -1,6 +1,6 @@
 import {Example} from "./Example";
 import {Operation} from "./Operation";
-import {randomFlag} from "../Random";
+import {random, randomFlag} from "../Random";
 import {Task} from "../Task/Task";
 import {CoefficientGenerator} from "./CoefficientGenerator";
 import {OperationGeneratorCollection} from "./OperationGeneratorCollection";
@@ -13,7 +13,7 @@ export class ExampleGenerator {
     }
 
     public generate(task: Task): Example {
-        const generator = this.operationGeneratorCollection.getGenerator(Operation.Add)
+        const generator = this.operationGeneratorCollection.getGenerator(this.getOperation(task))
         const exampleSettings = task.taskSettings.addSettings
         let example = generator.generate(exampleSettings)
 
@@ -34,5 +34,11 @@ export class ExampleGenerator {
         }
 
         return example
+    }
+
+    private getOperation(task: Task): Operation {
+        const operations = task.taskSettings.operations
+
+        return operations[random(0, operations.length - 1)]
     }
 }
