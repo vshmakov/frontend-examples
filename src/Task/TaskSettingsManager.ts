@@ -6,16 +6,21 @@ import {Operation} from "../Example/Operation";
 const storageKey = 'task-settings-v1';
 
 export class TaskSettingsManager {
-        public getCurrentSettings(): TaskSettings {
+    public getCurrentSettings(): TaskSettings {
         const item = localStorage.getItem(storageKey)
 
         if (null === item) {
-            const exampleSettings = new ExampleSettings(1, 9, 1, 10)
-            const defaultTaskSettings = new TaskSettings(
-                20,
-                [Operation.Add],
-                exampleSettings
-            )
+            const defaultTaskSettings = {
+                examplesCount: 10,
+                operations: [Operation.Add],
+                addSettings: {
+                    minValue: 1,
+                    maxValue: 9,
+                    minResult: 2,
+                    maxResult: 10
+                },
+            }
+this.normalize(defaultTaskSettings)
 
             return defaultTaskSettings
         }
@@ -35,7 +40,7 @@ export class TaskSettingsManager {
             taskSettings.examplesCount = 10
         }
 
-        if (0===taskSettings.operations.length){
+        if (0 === taskSettings.operations.length) {
             taskSettings.operations.push(Operation.Add)
         }
 

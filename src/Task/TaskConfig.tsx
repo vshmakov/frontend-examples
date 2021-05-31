@@ -31,11 +31,11 @@ export class TaskConfig extends React.Component<Props, State> {
                 </div>
                 <h1>Настройки задания</h1>
                 Количество примеров: <div>
-                    <input
-                        type="number"
-                        value={this.state.examplesCount}
-                        onChange={this.changeExamplesCountHandler.bind(this)}/>
-                </div>
+                <input
+                    type="number"
+                    value={this.state.examplesCount}
+                    onChange={this.changeExamplesCountHandler.bind(this)}/>
+            </div>
                 <OperationSettings
                     baseOperation={Operation.Add}
                     taskSettings={taskSettings}
@@ -57,7 +57,11 @@ export class TaskConfig extends React.Component<Props, State> {
     private getNewTaskSettings(): TaskSettings {
         const taskSettings = this.state.taskSettings
 
-        return new TaskSettings(taskSettings.examplesCount, taskSettings.operations, taskSettings.addSettings)
+        return {
+            examplesCount: taskSettings.examplesCount,
+            operations: taskSettings.operations,
+            addSettings: taskSettings.addSettings,
+        }
     }
 
     private clickHandler(): void {

@@ -33,7 +33,7 @@ export class OperationSettings extends React.Component<Props, State> {
                 </div>
                 <div>
                     <button onClick={(): void => this.setState({isSettingsOpened: !this.state.isSettingsOpened})}>
-                        {!this.state.isSettingsOpened ? "Открыть детальные настройки" : "Спрятать"}
+                        {!this.state.isSettingsOpened ? "Показать детальные настройки" : "Скрыть"}
                     </button>
                 </div>
                 {this.renderSettings(this.props.exampleSettings)}
