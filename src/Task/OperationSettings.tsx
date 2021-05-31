@@ -4,7 +4,7 @@ import {ExampleSettings} from "../Example/ExampleSettings";
 import {Operation} from "../Example/Operation";
 import {TaskSettings} from "./TaskSettings";
 import {Profile} from "../Example/Profile";
-import {isEqual} from "../ObjectManipulator";
+import {clone, copyValues, isEqual} from "../ObjectManipulator";
 
 interface Props {
     baseOperation: Operation.Add | Operation.Mult
@@ -16,12 +16,14 @@ interface Props {
 interface State {
     isSettingsOpened: boolean
     taskSettings: TaskSettings
+    exampleSettings: ExampleSettings
 }
 
 export class OperationSettings extends React.Component<Props, State> {
     public readonly state: State = {
         isSettingsOpened: false,
-        taskSettings: this.props.taskSettings
+        taskSettings: this.props.taskSettings,
+        exampleSettings: this.props.exampleSettings,
     }
 
     public render() {
@@ -42,7 +44,7 @@ export class OperationSettings extends React.Component<Props, State> {
                         {!this.state.isSettingsOpened ? "Показать детальные настройки" : "Скрыть"}
                     </button>
                 </div>
-                {this.renderSettings(this.props.exampleSettings)}
+                {this.renderSettings(this.state.exampleSettings)}
             </div>
         )
     }
@@ -52,14 +54,25 @@ export class OperationSettings extends React.Component<Props, State> {
             <label key={profile.name}>
                 <input
                     type="radio"
-                name='profile'
-                checked={isEqual(this.props.exampleSettings, profile.exampleSettings)}/>
+                    name='profile'
+                    checked={isEqual(this.state.exampleSettings, profile.exampleSettings)}
+                    onChange={this.changeRadioHandler.bind(this, profile)}/>
                 {profile.name}
             </label>
         )
     }
 
+    private changeRadioHandler(profile: Profile): void {
+        const exampleSettings = this.state.exampleSettings
+        copyValues(exampleSettings, profile.exampleSettings)
+            this.setState({
+            exampleSettings: exampleSettings
+        })
+    }
+
     private renderSettings(exampleSettings: ExampleSettings) {
+        const key=JSON.stringify(exampleSettings)
+
         return !this.state.isSettingsOpened ? '' : (
             <table>
                 <thead>
@@ -73,19 +86,19 @@ export class OperationSettings extends React.Component<Props, State> {
                 <tr>
                     <th>Значение</th>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='minValue'/>
+                        <SettingInput exampleSettings={exampleSettings} name='minValue' key={key}/>
                     </td>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='maxValue'/>
+                        <SettingInput exampleSettings={exampleSettings} name='maxValue' key={key}/>
                     </td>
                 </tr>
                 <tr>
                     <th>Результат</th>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='minResult'/>
+                        <SettingInput exampleSettings={exampleSettings} name='minResult' key={key}/>
                     </td>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='maxResult'/>
+                        <SettingInput exampleSettings={exampleSettings} name='maxResult' key={key}/>
                     </td>
                 </tr>
                 </tbody>
@@ -106,13 +119,13 @@ export class OperationSettings extends React.Component<Props, State> {
                 <input
                     type="checkbox"
                     checked={this.state.taskSettings.operations.includes(operation)}
-                    onChange={this.changeHandler.bind(this, operation)}/>
+                    onChange={this.changeCheckboxHandler.bind(this, operation)}/>
                 {operationNames[operation]}
             </label>
         )
     }
 
-    private changeHandler(operation: Operation, event: React.ChangeEvent<HTMLInputElement>): void {
+    private changeCheckboxHandler(operation: Operation): void {
         const taskSettings = this.state.taskSettings
         const enabledOperations = taskSettings.operations
             .filter((enabledOperation: Operation): boolean => enabledOperation !== operation)

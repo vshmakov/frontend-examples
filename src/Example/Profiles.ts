@@ -1,6 +1,3 @@
-import {ExampleSettings} from "./ExampleSettings";
-import {Operation} from "./Operation";
-import {TaskSettings} from "../Task/TaskSettings";
 import {Profile} from "./Profile";
 
 export const defaultProfile: Profile = {
