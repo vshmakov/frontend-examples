@@ -1,4 +1,3 @@
-import {ExampleSettings} from "../Example/ExampleSettings";
 import {TaskSettings} from "./TaskSettings";
 import {getValueBetween, getValueLessThan} from "../Example/NumberManipulator";
 import {Operation} from "../Example/Operation";
@@ -20,7 +19,7 @@ export class TaskSettingsManager {
                     maxResult: 10
                 },
             }
-this.normalize(defaultTaskSettings)
+            this.normalize(defaultTaskSettings)
 
             return defaultTaskSettings
         }
