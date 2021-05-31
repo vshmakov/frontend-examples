@@ -31,6 +31,24 @@ const addProfiles: Profile[] = [
             maxResult: 0
         }
     },
+    {
+        name: 'В пределах 10 000 (в столбик)',
+        exampleSettings: {
+            minValue: 100,
+            maxValue: 10000 - 100,
+            minResult: 0,
+            maxResult: 0
+        }
+    },
+    {
+        name: 'От -100 до 100',
+        exampleSettings: {
+            minValue: -100,
+            maxValue: 100,
+            minResult: -100,
+            maxResult: 100
+        }
+    },
 ]
 
 export class ProfileProvider {
