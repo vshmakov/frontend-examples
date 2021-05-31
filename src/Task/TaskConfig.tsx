@@ -4,6 +4,7 @@ import {TaskSettings} from "./TaskSettings";
 import {StartNewTaskButton} from "./StartNewTaskButton";
 import {OperationSettings} from "./OperationSettings";
 import {Operation} from "../Example/Operation";
+import {addProfiles} from "../Example/Profiles";
 
 interface Props {
     taskSettingsManager: TaskSettingsManager
@@ -39,7 +40,8 @@ export class TaskConfig extends React.Component<Props, State> {
                 <OperationSettings
                     baseOperation={Operation.Add}
                     taskSettings={taskSettings}
-                    exampleSettings={taskSettings.addSettings}/>
+                    exampleSettings={taskSettings.addSettings}
+                profiles={addProfiles}/>
             </div>
         )
     }

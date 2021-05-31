@@ -3,11 +3,14 @@ import {SettingInput} from "./SettingInput";
 import {ExampleSettings} from "../Example/ExampleSettings";
 import {Operation} from "../Example/Operation";
 import {TaskSettings} from "./TaskSettings";
+import {Profile} from "../Example/Profile";
+import {isEqual} from "../ObjectManipulator";
 
 interface Props {
     baseOperation: Operation.Add | Operation.Mult
     taskSettings: TaskSettings
     exampleSettings: ExampleSettings
+    profiles: Profile[]
 }
 
 interface State {
@@ -31,6 +34,9 @@ export class OperationSettings extends React.Component<Props, State> {
                 <div>
                     {operationCheckboxes}
                 </div>
+                <form>
+                    {this.props.profiles.map(this.renderProfile.bind(this))}
+                </form>
                 <div>
                     <button onClick={(): void => this.setState({isSettingsOpened: !this.state.isSettingsOpened})}>
                         {!this.state.isSettingsOpened ? "Показать детальные настройки" : "Скрыть"}
@@ -38,6 +44,18 @@ export class OperationSettings extends React.Component<Props, State> {
                 </div>
                 {this.renderSettings(this.props.exampleSettings)}
             </div>
+        )
+    }
+
+    private renderProfile(profile: Profile) {
+        return (
+            <label key={profile.name}>
+                <input
+                    type="radio"
+                name='profile'
+                checked={isEqual(this.props.exampleSettings, profile.exampleSettings)}/>
+                {profile.name}
+            </label>
         )
     }
 

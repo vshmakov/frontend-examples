@@ -1,6 +1,7 @@
 import {TaskSettings} from "./TaskSettings";
 import {getValueBetween, getValueLessThan} from "../Example/NumberManipulator";
 import {Operation} from "../Example/Operation";
+import {defaultProfile} from "../Example/Profiles";
 
 const storageKey = 'task-settings-v1';
 
@@ -12,12 +13,7 @@ export class TaskSettingsManager {
             const defaultTaskSettings = {
                 examplesCount: 10,
                 operations: [Operation.Add],
-                addSettings: {
-                    minValue: 1,
-                    maxValue: 9,
-                    minResult: 2,
-                    maxResult: 10
-                },
+                addSettings: defaultProfile.exampleSettings
             }
             this.normalize(defaultTaskSettings)
 

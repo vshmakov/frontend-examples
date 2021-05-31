@@ -1,4 +1,5 @@
 import {Task} from "./Task";
+import {getObjectKeys} from "../ObjectManipulator";
 
 export class RatingGenerator {
     private readonly coefficients = {
@@ -20,10 +21,10 @@ export class RatingGenerator {
     }
 
     private getTaskCoefficients(task: Task): number[] {
-        const unknownIndex = Object.keys(this.coefficients)
-            .reduce((previousExamplesCount: string, examplesCount: string): string => task.solvedExamplesCount >= +examplesCount ? examplesCount : previousExamplesCount)
         const coefficients = this.coefficients
-        const index = unknownIndex as unknown as keyof typeof coefficients
+        type ExamplesCount = keyof typeof coefficients
+        const index = getObjectKeys(this.coefficients)
+            .reduce((previousExamplesCount: ExamplesCount, examplesCount: ExamplesCount): ExamplesCount => task.solvedExamplesCount >= +examplesCount ? examplesCount : previousExamplesCount)
         const standardExamplesCount = +index
 
         return this.coefficients[index]
