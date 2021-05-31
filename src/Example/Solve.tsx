@@ -7,12 +7,14 @@ import {Task} from "../Task/Task";
 import {TaskConfig} from "../Task/TaskConfig";
 import {TaskSettingsManager} from "../Task/TaskSettingsManager";
 import {RatingGenerator} from "../Task/RatingGenerator";
+import {ProfileProvider} from "./ProfileProvider";
 
 interface Props {
     taskSettingsManager: TaskSettingsManager
     taskProvider: TaskProvider
     ratingGenerator:RatingGenerator
     exampleProvider: ExampleProvider
+    profileProvider: ProfileProvider
 }
 
 interface State {
@@ -32,7 +34,10 @@ export class Solve extends React.Component<Props, State> {
 
     public render() {
         if (this.state.showTaskConfig) {
-            return <TaskConfig startNewTask={this.startNewTask.bind(this)} taskSettingsManager={this.props.taskSettingsManager}/>
+            return <TaskConfig
+                startNewTask={this.startNewTask.bind(this)}
+                taskSettingsManager={this.props.taskSettingsManager}
+            profileProvider={this.props.profileProvider}/>
         }
 
         const task = this.getCurrentOrNewTask()

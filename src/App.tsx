@@ -9,6 +9,9 @@ import {OperationGeneratorCollection} from "./Example/OperationGeneratorCollecti
 import {AddGenerator} from "./Example/AddGenerator";
 import {RatingGenerator} from "./Task/RatingGenerator";
 import {RevertGenerator} from "./Example/RevertGenerator";
+import {TaskSettingsNormalizer} from "./Task/TaskSettingsNormalizer";
+import {ProfileProvider} from "./Example/ProfileProvider";
+import {ExampleSettingsNormalizer} from "./Example/ExampleSettingsNormalizer";
 
 const addGenerator = new AddGenerator()
 const operationGeneratorCollection = new OperationGeneratorCollection([
@@ -18,7 +21,10 @@ const operationGeneratorCollection = new OperationGeneratorCollection([
 const coefficientGenerator = new CoefficientGenerator()
 const exampleGenerator = new ExampleGenerator(operationGeneratorCollection, coefficientGenerator)
 const exampleProvider = new ExampleProvider(exampleGenerator)
-const taskSettingsManager = new TaskSettingsManager()
+const exampleSettingsNormalizer = new ExampleSettingsNormalizer()
+const taskSettingsNormalizer = new TaskSettingsNormalizer(exampleSettingsNormalizer)
+const profileProvider = new ProfileProvider(exampleSettingsNormalizer)
+const taskSettingsManager = new TaskSettingsManager(taskSettingsNormalizer, profileProvider)
 const taskProvider = new TaskProvider(taskSettingsManager)
 const ratingGenerator = new RatingGenerator()
 
@@ -28,6 +34,7 @@ export default function App() {
             taskProvider={taskProvider}
             taskSettingsManager={taskSettingsManager}
             ratingGenerator={ratingGenerator}
-            exampleProvider={exampleProvider}/>
+            exampleProvider={exampleProvider}
+        profileProvider={profileProvider}/>
     )
 }

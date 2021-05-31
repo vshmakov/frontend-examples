@@ -1,23 +1,26 @@
 import {TaskSettings} from "./TaskSettings";
-import {getValueBetween, getValueLessThan} from "../Example/NumberManipulator";
 import {Operation} from "../Example/Operation";
-import {defaultProfile} from "../Example/Profiles";
+import {TaskSettingsNormalizer} from "./TaskSettingsNormalizer";
+import {ProfileProvider} from "../Example/ProfileProvider";
 
 const storageKey = 'task-settings-v1';
 
 export class TaskSettingsManager {
+    public constructor(
+        private readonly taskSettingsNormalizer: TaskSettingsNormalizer,
+        private readonly profileProvider: ProfileProvider
+    ) {
+    }
+
     public getCurrentSettings(): TaskSettings {
         const item = localStorage.getItem(storageKey)
 
         if (null === item) {
-            const defaultTaskSettings = {
+            return {
                 examplesCount: 10,
                 operations: [Operation.Add],
-                addSettings: defaultProfile.exampleSettings
+                addSettings: this.profileProvider.defaultAddProfile.exampleSettings
             }
-            this.normalize(defaultTaskSettings)
-
-            return defaultTaskSettings
         }
 
         const taskSettings = JSON.parse(item)
@@ -26,23 +29,7 @@ export class TaskSettingsManager {
     }
 
     public saveTaskSettings(taskSettings: TaskSettings): void {
-        this.normalize(taskSettings)
+        this.taskSettingsNormalizer.normalize(taskSettings)
         localStorage.setItem(storageKey, JSON.stringify(taskSettings))
-    }
-
-    private normalize(taskSettings: TaskSettings): void {
-        if (taskSettings.examplesCount < 1) {
-            taskSettings.examplesCount = 10
-        }
-
-        if (0 === taskSettings.operations.length) {
-            taskSettings.operations.push(Operation.Add)
-        }
-
-        const addSettings = taskSettings.addSettings
-
-        addSettings.minValue = getValueLessThan(addSettings.minValue, addSettings.maxValue)
-        addSettings.minResult = getValueBetween(addSettings.minResult, addSettings.minValue * 2, addSettings.minValue + addSettings.maxValue)
-        addSettings.maxResult = getValueBetween(addSettings.maxResult, addSettings.minValue + addSettings.maxValue, addSettings.maxValue * 2)
     }
 }
