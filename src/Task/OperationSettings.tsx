@@ -4,7 +4,7 @@ import {ExampleSettings} from "../Example/ExampleSettings";
 import {Operation} from "../Example/Operation";
 import {TaskSettings} from "./TaskSettings";
 import {Profile} from "../Example/Profile";
-import {clone, copyValues, isEqual} from "../ObjectManipulator";
+import {copyValues, isEqual} from "../ObjectManipulator";
 
 interface Props {
     baseOperation: Operation.Add | Operation.Mult
@@ -65,13 +65,13 @@ export class OperationSettings extends React.Component<Props, State> {
     private changeRadioHandler(profile: Profile): void {
         const exampleSettings = this.state.exampleSettings
         copyValues(exampleSettings, profile.exampleSettings)
-            this.setState({
+        this.setState({
             exampleSettings: exampleSettings
         })
     }
 
     private renderSettings(exampleSettings: ExampleSettings) {
-        const key=JSON.stringify(exampleSettings)
+        const key = JSON.stringify(exampleSettings)
 
         return !this.state.isSettingsOpened ? '' : (
             <table>
