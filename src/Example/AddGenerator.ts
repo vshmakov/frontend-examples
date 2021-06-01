@@ -4,7 +4,7 @@ import {ExampleSettings} from "./ExampleSettings";
 import {ExampleValues} from "./ExampleValues";
 import {random, randomFlag} from "../Random";
 import {Example} from "./Example";
-import {getValueBetween} from "./NumberManipulator";
+import {getValueBetween} from "../NumberManipulator";
 
 export class AddGenerator implements OperationGenerator {
     public readonly operation: Operation = Operation.Add

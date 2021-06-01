@@ -1,6 +1,6 @@
 import React from "react";
-import {Task} from "./Task";
-import {RatingGenerator} from "./RatingGenerator";
+import {Task} from "../Task/Task";
+import {RatingGenerator} from "../Task/RatingGenerator";
 import {StartNewTaskButton} from "./StartNewTaskButton";
 
 interface Props {

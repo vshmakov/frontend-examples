@@ -2,7 +2,7 @@ import React from "react";
 import {SettingInput} from "./SettingInput";
 import {ExampleSettings} from "../Example/ExampleSettings";
 import {Operation} from "../Example/Operation";
-import {TaskSettings} from "./TaskSettings";
+import {TaskSettings} from "../Task/TaskSettings";
 import {Profile} from "../Example/Profile";
 import {copyValues, isEqual} from "../ObjectManipulator";
 

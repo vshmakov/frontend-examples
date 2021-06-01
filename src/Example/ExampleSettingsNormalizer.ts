@@ -1,4 +1,4 @@
-import {getValueBetween, getValueLessThan} from "./NumberManipulator";
+import {getValueBetween, getValueLessThan} from "../NumberManipulator";
 import {ExampleSettings} from "./ExampleSettings";
 
 export class ExampleSettingsNormalizer {

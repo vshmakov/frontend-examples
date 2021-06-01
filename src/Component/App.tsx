@@ -1,17 +1,17 @@
 import React from 'react';
-import {Solve} from "./Example/Solve";
-import {ExampleProvider} from "./Example/ExampleProvider";
-import {TaskProvider} from "./Task/TaskProvider";
-import {TaskSettingsManager} from "./Task/TaskSettingsManager";
-import {ExampleGenerator} from './Example/ExampleGenerator'
-import {CoefficientGenerator} from "./Example/CoefficientGenerator";
-import {OperationGeneratorCollection} from "./Example/OperationGeneratorCollection";
-import {AddGenerator} from "./Example/AddGenerator";
-import {RatingGenerator} from "./Task/RatingGenerator";
-import {RevertGenerator} from "./Example/RevertGenerator";
-import {TaskSettingsNormalizer} from "./Task/TaskSettingsNormalizer";
-import {ProfileProvider} from "./Example/ProfileProvider";
-import {ExampleSettingsNormalizer} from "./Example/ExampleSettingsNormalizer";
+import {Solve} from "./Solve";
+import {ExampleProvider} from "../Example/ExampleProvider";
+import {TaskProvider} from "../Task/TaskProvider";
+import {TaskSettingsManager} from "../Task/TaskSettingsManager";
+import {ExampleGenerator} from '../Example/ExampleGenerator'
+import {CoefficientGenerator} from "../Example/CoefficientGenerator";
+import {OperationGeneratorCollection} from "../Example/OperationGeneratorCollection";
+import {AddGenerator} from "../Example/AddGenerator";
+import {RatingGenerator} from "../Task/RatingGenerator";
+import {RevertGenerator} from "../Example/RevertGenerator";
+import {TaskSettingsNormalizer} from "../Task/TaskSettingsNormalizer";
+import {ProfileProvider} from "../Example/ProfileProvider";
+import {ExampleSettingsNormalizer} from "../Example/ExampleSettingsNormalizer";
 
 const addGenerator = new AddGenerator()
 const operationGeneratorCollection = new OperationGeneratorCollection([

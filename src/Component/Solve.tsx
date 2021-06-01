@@ -1,13 +1,13 @@
-import {Example} from "./Example";
+import {Example} from "../Example/Example";
 import React from "react";
-import {TaskResult} from "../Task/TaskResult";
+import {TaskResult} from "./TaskResult";
 import {TaskProvider} from "../Task/TaskProvider";
-import {ExampleProvider} from "./ExampleProvider";
+import {ExampleProvider} from "../Example/ExampleProvider";
 import {Task} from "../Task/Task";
-import {TaskConfig} from "../Task/TaskConfig";
+import {TaskConfig} from "./TaskConfig";
 import {TaskSettingsManager} from "../Task/TaskSettingsManager";
 import {RatingGenerator} from "../Task/RatingGenerator";
-import {ProfileProvider} from "./ProfileProvider";
+import {ProfileProvider} from "../Example/ProfileProvider";
 
 interface Props {
     taskSettingsManager: TaskSettingsManager
