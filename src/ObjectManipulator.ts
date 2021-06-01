@@ -22,11 +22,16 @@ export function copyValues<T extends {}>(target: T, source: T): void {
 
 
 export function clone<T extends {}>(object: T): T {
-    const clone = {} as T
+    const cloned = {} as T
 
     for (let key of getObjectKeys(object)) {
-        clone[key] = object[key]
+        const value = object[key]
+        cloned[key] = isObject(value) ? clone(value) : value
     }
 
-    return clone
+    return cloned
+}
+
+function isObject(value: any): boolean {
+    return typeof value === 'object' && value !== null
 }

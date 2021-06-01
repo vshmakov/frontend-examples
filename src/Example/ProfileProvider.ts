@@ -1,5 +1,6 @@
 import {Profile} from "./Profile";
 import {ExampleSettingsNormalizer} from "./ExampleSettingsNormalizer";
+import {clone} from "../ObjectManipulator";
 
 const add10Profile: Profile = {
     name: 'В пределах 10',
@@ -58,12 +59,17 @@ export class ProfileProvider {
     public get defaultAddProfile(): Profile {
         this.exampleSettingsNormalizer.normalizeAddSettings(add10Profile.exampleSettings)
 
-        return add10Profile
+        return this.getNormalizedAddProfile(add10Profile)
     }
 
     public get addProfiles(): Profile[] {
-        addProfiles.map((profile: Profile): void => this.exampleSettingsNormalizer.normalizeAddSettings(profile.exampleSettings))
+        return addProfiles.map(this.getNormalizedAddProfile.bind(this))
+    }
 
-        return addProfiles
+    private getNormalizedAddProfile(profile: Profile): Profile {
+        const cloned = clone(profile)
+        this.exampleSettingsNormalizer.normalizeAddSettings(cloned.exampleSettings)
+
+        return cloned
     }
 }

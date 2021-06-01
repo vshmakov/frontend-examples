@@ -2,7 +2,6 @@ import {TaskSettings} from "./TaskSettings";
 import {Operation} from "../Example/Operation";
 import {TaskSettingsNormalizer} from "./TaskSettingsNormalizer";
 import {ProfileProvider} from "../Example/ProfileProvider";
-import {clone} from "../ObjectManipulator";
 
 const storageKey = 'task-settings-v1';
 
@@ -20,7 +19,7 @@ export class TaskSettingsManager {
             return {
                 examplesCount: 10,
                 operations: [Operation.Add],
-                addSettings: clone(this.profileProvider.defaultAddProfile.exampleSettings),
+                addSettings: this.profileProvider.defaultAddProfile.exampleSettings,
             }
         }
 
