@@ -5,6 +5,7 @@ import {StartNewTaskButton} from "./StartNewTaskButton";
 import {OperationSettings} from "./OperationSettings";
 import {Operation} from "../Example/Operation";
 import {ProfileProvider} from "../Example/ProfileProvider";
+import {clone} from "../ObjectManipulator";
 
 interface Props {
     taskSettingsManager: TaskSettingsManager
@@ -43,6 +44,11 @@ export class TaskConfig extends React.Component<Props, State> {
                     taskSettings={taskSettings}
                     exampleSettings={taskSettings.addSettings}
                     profiles={this.props.profileProvider.addProfiles}/>
+                <OperationSettings
+                    baseOperation={Operation.Mult}
+                    taskSettings={taskSettings}
+                    exampleSettings={taskSettings.multSettings}
+                    profiles={this.props.profileProvider.multProfiles}/>
             </div>
         )
     }
@@ -60,11 +66,7 @@ export class TaskConfig extends React.Component<Props, State> {
     private getNewTaskSettings(): TaskSettings {
         const taskSettings = this.state.taskSettings
 
-        return {
-            examplesCount: taskSettings.examplesCount,
-            operations: taskSettings.operations,
-            addSettings: taskSettings.addSettings,
-        }
+        return clone(taskSettings)
     }
 
     private clickHandler(): void {

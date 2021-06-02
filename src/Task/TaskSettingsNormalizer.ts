@@ -16,6 +16,6 @@ export class TaskSettingsNormalizer {
         }
 
         this.exampleSettingsNormalizer.normalizeAddSettings(taskSettings.addSettings)
+        this.exampleSettingsNormalizer.normalizeMultSettings(taskSettings.multSettings)
     }
-
 }

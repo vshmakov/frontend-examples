@@ -5,7 +5,8 @@ export class TaskSettings {
     public constructor(
         public examplesCount: number,
         public operations: Operation[],
-        public readonly addSettings: ExampleSettings
+        public readonly addSettings: ExampleSettings,
+        public readonly multSettings: ExampleSettings,
     ) {
     }
 }

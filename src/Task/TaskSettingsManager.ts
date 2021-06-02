@@ -3,7 +3,7 @@ import {Operation} from "../Example/Operation";
 import {TaskSettingsNormalizer} from "./TaskSettingsNormalizer";
 import {ProfileProvider} from "../Example/ProfileProvider";
 
-const storageKey = 'task-settings-v1';
+const storageKey = 'task-settings-v2';
 
 export class TaskSettingsManager {
     public constructor(
@@ -20,6 +20,7 @@ export class TaskSettingsManager {
                 examplesCount: 10,
                 operations: [Operation.Add],
                 addSettings: this.profileProvider.defaultAddProfile.exampleSettings,
+                multSettings: this.profileProvider.defaultMultProfile.exampleSettings
             }
         }
 
