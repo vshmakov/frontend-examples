@@ -5,7 +5,6 @@ import {StartNewTaskButton} from "./StartNewTaskButton";
 import {OperationSettings} from "./OperationSettings";
 import {Operation} from "../Example/Operation";
 import {ProfileProvider} from "../Example/ProfileProvider";
-import {clone} from "../ObjectManipulator";
 
 interface Props {
     taskSettingsManager: TaskSettingsManager
@@ -54,19 +53,12 @@ export class TaskConfig extends React.Component<Props, State> {
     }
 
     private changeExamplesCountHandler(event: React.ChangeEvent<HTMLInputElement>): void {
-        const taskSettings = this.getNewTaskSettings()
+        const taskSettings = this.state.taskSettings
         const value = event.target.value
         taskSettings.examplesCount = +value
         this.setState({
             examplesCount: value,
-            taskSettings: taskSettings
         })
-    }
-
-    private getNewTaskSettings(): TaskSettings {
-        const taskSettings = this.state.taskSettings
-
-        return clone(taskSettings)
     }
 
     private clickHandler(): void {

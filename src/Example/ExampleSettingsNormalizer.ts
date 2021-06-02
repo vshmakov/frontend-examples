@@ -10,6 +10,12 @@ export class ExampleSettingsNormalizer {
     }
 
     public normalizeMultSettings(exampleSettings: ExampleSettings): void {
+        const valueSettings: (keyof ExampleSettings)[] = ['minValue', 'maxValue']
+        valueSettings.forEach((key: keyof ExampleSettings): void => {
+            if (0 >= exampleSettings[key]) {
+                exampleSettings[key] = 1
+            }
+        })
         exampleSettings.minValue = getValueLessThan(exampleSettings.minValue, exampleSettings.maxValue)
         const upperBound = exampleSettings.maxValue * exampleSettings.minValue
         exampleSettings.minResult = getValueBetween(exampleSettings.minResult, exampleSettings.minValue ** 2, upperBound)

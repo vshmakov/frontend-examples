@@ -9,8 +9,8 @@ export class ProfileProvider {
     private normalizeMultProfile: ProfileNormalizer
 
     public constructor(exampleSettingsNormalizer: ExampleSettingsNormalizer) {
-        this.normalizeAddProfile=this.normalizeProfile.bind(this, exampleSettingsNormalizer.normalizeAddSettings)
-        this.normalizeMultProfile=this.normalizeProfile.bind(this, exampleSettingsNormalizer.normalizeMultSettings)
+        this.normalizeAddProfile = this.normalizeProfile.bind(this, exampleSettingsNormalizer.normalizeAddSettings)
+        this.normalizeMultProfile = this.normalizeProfile.bind(this, exampleSettingsNormalizer.normalizeMultSettings)
     }
 
     public get defaultAddProfile(): Profile {
@@ -74,15 +74,7 @@ export class ProfileProvider {
     }
 
     public get defaultMultProfile(): Profile {
-        const multTableProfile: Profile = {
-            name: 'Таблица умножения',
-            exampleSettings: {
-                minValue: 1,
-                maxValue: 9,
-                minResult: 1,
-                maxResult: 81
-            }
-        }
+        const multTableProfile: Profile = this.getMultProfile(1, 9)
         this.normalizeMultProfile(multTableProfile)
 
         return multTableProfile
@@ -90,11 +82,27 @@ export class ProfileProvider {
 
     public get multProfiles(): Profile[] {
         const multProfiles: Profile[] = [
-            this.defaultMultProfile
+            this.getMultProfile(1, 3),
+            this.getMultProfile(1, 6),
+            this.getMultProfile(1, 9),
+            this.getMultProfile(3, 9),
+            this.getMultProfile(10, 1000),
         ]
         multProfiles.map(this.normalizeMultProfile)
 
         return multProfiles
+    }
+
+    private getMultProfile(minValue: number, maxValue: number): Profile {
+        return {
+            name: `От ${minValue} до ${maxValue}`,
+            exampleSettings: {
+                minValue: minValue,
+                maxValue: maxValue,
+                minResult: minValue ** 2,
+                maxResult: maxValue ** 2
+            }
+        }
     }
 
     private normalizeProfile(normalizer: (exampleSettings: ExampleSettings) => void, profile: Profile): void {

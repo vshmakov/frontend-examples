@@ -54,13 +54,15 @@ export class OperationSettings extends React.Component<Props, State> {
     }
 
     private renderProfile(profile: Profile) {
+        const isInputDisabled = this.isInputDisabled
+
         return (
             <label key={profile.name}>
                 <input
                     type="radio"
                     name='profile'
-                    checked={isEqual(this.state.exampleSettings, profile.exampleSettings)}
-                    disabled={this.isInputDisabled}
+                    checked={!isInputDisabled && isEqual(this.state.exampleSettings, profile.exampleSettings)}
+                    disabled={isInputDisabled}
                     onChange={this.changeRadioHandler.bind(this, profile)}/>
                 {profile.name}
             </label>
@@ -83,7 +85,7 @@ export class OperationSettings extends React.Component<Props, State> {
     }
 
     private renderSettings(exampleSettings: ExampleSettings) {
-        const isInputDisabled=this.isInputDisabled
+        const isInputDisabled = this.isInputDisabled
         const key = JSON.stringify([isInputDisabled, exampleSettings])
 
         return !this.state.isSettingsOpened ? '' : (
@@ -99,19 +101,23 @@ export class OperationSettings extends React.Component<Props, State> {
                 <tr>
                     <th>Значение</th>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='minValue' key={key} disabled={isInputDisabled}/>
+                        <SettingInput exampleSettings={exampleSettings} name='minValue' key={key}
+                                      disabled={isInputDisabled}/>
                     </td>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='maxValue' key={key} disabled={isInputDisabled}/>
+                        <SettingInput exampleSettings={exampleSettings} name='maxValue' key={key}
+                                      disabled={isInputDisabled}/>
                     </td>
                 </tr>
                 <tr>
                     <th>Результат</th>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='minResult' key={key} disabled={isInputDisabled}/>
+                        <SettingInput exampleSettings={exampleSettings} name='minResult' key={key}
+                                      disabled={isInputDisabled}/>
                     </td>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='maxResult' key={key} disabled={isInputDisabled}/>
+                        <SettingInput exampleSettings={exampleSettings} name='maxResult' key={key}
+                                      disabled={isInputDisabled}/>
                     </td>
                 </tr>
                 </tbody>
