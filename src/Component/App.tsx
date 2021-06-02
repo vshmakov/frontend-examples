@@ -14,12 +14,15 @@ import {ProfileProvider} from "../Example/ProfileProvider";
 import {ExampleSettingsNormalizer} from "../Example/ExampleSettingsNormalizer";
 import {TaskResult} from "./TaskResult";
 import {TaskConfig} from "./TaskConfig";
-
+import {MultGenerator} from "../Example/MultGenerator";
 
 const addGenerator = new AddGenerator()
+const multGenerator = new MultGenerator()
 const operationGeneratorCollection = new OperationGeneratorCollection([
     addGenerator,
     new RevertGenerator(addGenerator),
+    multGenerator,
+    new RevertGenerator(multGenerator),
 ])
 const coefficientGenerator = new CoefficientGenerator()
 const exampleGenerator = new ExampleGenerator(operationGeneratorCollection, coefficientGenerator)
@@ -41,7 +44,7 @@ interface State {
     page: Page
 }
 
-export default class App extends React.Component<{}, State> {
+export class App extends React.Component<{}, State> {
     public readonly state: State = {
         page: Page.Solve,
     }

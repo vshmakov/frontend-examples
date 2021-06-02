@@ -13,8 +13,10 @@ export class ExampleGenerator {
     }
 
     public generate(task: Task): Example {
-        const generator = this.operationGeneratorCollection.getGenerator(this.getOperation(task))
-        const exampleSettings = task.taskSettings.addSettings
+        const operation = this.getOperation(task)
+        const generator = this.operationGeneratorCollection.getGenerator(operation)
+        const taskSettings = task.taskSettings
+        const exampleSettings = [Operation.Add, Operation.Sub].includes(operation) ? taskSettings.addSettings : taskSettings.multSettings
         let example = generator.generate(exampleSettings)
 
         if (randomFlag(15)) {
