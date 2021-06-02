@@ -1,52 +1,31 @@
 import {Example} from "../Example/Example";
 import React from "react";
-import {TaskResult} from "./TaskResult";
 import {TaskProvider} from "../Task/TaskProvider";
 import {ExampleProvider} from "../Example/ExampleProvider";
 import {Task} from "../Task/Task";
-import {TaskConfig} from "./TaskConfig";
-import {TaskSettingsManager} from "../Task/TaskSettingsManager";
-import {RatingGenerator} from "../Task/RatingGenerator";
-import {ProfileProvider} from "../Example/ProfileProvider";
 
 interface Props {
-    taskSettingsManager: TaskSettingsManager
     taskProvider: TaskProvider
-    ratingGenerator:RatingGenerator
     exampleProvider: ExampleProvider
-    profileProvider: ProfileProvider
+    openConfiguration: () => void
+    openTaskResult: () => void
 }
 
 interface State {
     example: Example
     answer: string
-    showTaskHistory: boolean
-    showTaskConfig: boolean
 }
 
 export class Solve extends React.Component<Props, State> {
     public readonly state: State = {
         example: this.getActualOrNewExample(),
         answer: '',
-        showTaskHistory: false,
-        showTaskConfig: false,
     }
 
     public render() {
-        if (this.state.showTaskConfig) {
-            return <TaskConfig
-                startNewTask={this.startNewTask.bind(this)}
-                taskSettingsManager={this.props.taskSettingsManager}
-            profileProvider={this.props.profileProvider}/>
-        }
-
         const task = this.getCurrentOrNewTask()
 
-        if (this.state.showTaskHistory) {
-            return <TaskResult ratingGenerator={this.props.ratingGenerator} task={task} startNewTask={this.startNewTask.bind(this)}/>
-        }
-
-                return (
+        return (
             <div>
                 <form onSubmit={this.submitHandler.bind(this)}>
                     <h1>Пример №{task.currentExampleNumber} из {task.taskSettings.examplesCount}</h1>
@@ -58,27 +37,12 @@ export class Solve extends React.Component<Props, State> {
                     <button type="submit">Ответить</button>
                 </form>
                 <div>
-                    <button onClick={this.clickHandler.bind(this)}>
+                    <button onClick={this.props.openConfiguration}>
                         Изменить настройки
                     </button>
                 </div>
             </div>
         )
-    }
-
-    private startNewTask(): void {
-        this.props.taskProvider.cleanCurrentTask()
-        this.setState({
-            example: this.getActualOrNewExample(),
-            showTaskHistory: false,
-            showTaskConfig: false
-        })
-    }
-
-    private clickHandler(): void {
-        this.setState({
-            showTaskConfig: true
-        })
     }
 
     private changeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -103,9 +67,7 @@ export class Solve extends React.Component<Props, State> {
         example.answer = +answer
 
         if (this.getCurrentOrNewTask().isSolved) {
-            this.setState({
-                showTaskHistory: true
-            })
+            this.props.openTaskResult()
 
             return
         }

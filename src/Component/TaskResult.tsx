@@ -2,16 +2,17 @@ import React from "react";
 import {Task} from "../Task/Task";
 import {RatingGenerator} from "../Task/RatingGenerator";
 import {StartNewTaskButton} from "./StartNewTaskButton";
+import {TaskProvider} from "../Task/TaskProvider";
 
 interface Props {
-    ratingGenerator:RatingGenerator
-    task: Task
+    ratingGenerator: RatingGenerator
+    taskProvider: TaskProvider
     startNewTask: () => void
 }
 
 export class TaskResult extends React.Component<Props> {
-    render() {
-        const task = this.props.task
+    public render() {
+        const task = this.props.taskProvider.getCurrentOrNewTask()
 
         return (
             <div>

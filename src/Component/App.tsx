@@ -12,6 +12,9 @@ import {RevertGenerator} from "../Example/RevertGenerator";
 import {TaskSettingsNormalizer} from "../Task/TaskSettingsNormalizer";
 import {ProfileProvider} from "../Example/ProfileProvider";
 import {ExampleSettingsNormalizer} from "../Example/ExampleSettingsNormalizer";
+import {TaskResult} from "./TaskResult";
+import {TaskConfig} from "./TaskConfig";
+
 
 const addGenerator = new AddGenerator()
 const operationGeneratorCollection = new OperationGeneratorCollection([
@@ -28,13 +31,53 @@ const taskSettingsManager = new TaskSettingsManager(taskSettingsNormalizer, prof
 const taskProvider = new TaskProvider(taskSettingsManager)
 const ratingGenerator = new RatingGenerator()
 
-export default function App() {
-    return (
-        <Solve
-            taskProvider={taskProvider}
-            taskSettingsManager={taskSettingsManager}
-            ratingGenerator={ratingGenerator}
-            exampleProvider={exampleProvider}
-        profileProvider={profileProvider}/>
-    )
+enum Page {
+    Solve = 1,
+    TaskResult,
+    TaskConfig,
+}
+
+interface State {
+    page: Page
+}
+
+export default class App extends React.Component<{}, State> {
+    public readonly state: State = {
+        page: Page.Solve,
+    }
+
+    public render() {
+        const router = {
+            [Page.Solve]: <Solve
+                taskProvider={taskProvider}
+                exampleProvider={exampleProvider}
+                openConfiguration={this.openPage.bind(this, Page.TaskConfig)}
+                openTaskResult={this.openPage.bind(this, Page.TaskResult)}/>,
+            [Page.TaskResult]: <TaskResult
+                ratingGenerator={ratingGenerator}
+                taskProvider={taskProvider}
+                startNewTask={this.startNewTask.bind(this)}/>,
+            [Page.TaskConfig]: <TaskConfig
+                profileProvider={profileProvider}
+                taskSettingsManager={taskSettingsManager}
+                startNewTask={this.startNewTask.bind(this)}/>,
+        }
+
+        return (
+            <div>
+                {router[this.state.page]}
+            </div>
+        )
+    }
+
+    private startNewTask(): void {
+        taskProvider.cleanCurrentTask()
+        this.openPage(Page.Solve)
+    }
+
+    private openPage(page: Page): void {
+        this.setState({
+            page: page
+        })
+    }
 }
