@@ -11,4 +11,4 @@ Simple single page application for teaching children to solve arifmetic examples
 - You can choose one of predefined profiles or use custom settings
 
 
-[Show here](https://vshmakov.github.io/frontend-examples/)
+[Look here](https://vshmakov.github.io/frontend-examples/)
