@@ -27,9 +27,7 @@ export class OperationSettings extends React.Component<Props, State> {
     }
 
     public render() {
-        const baseOperation = this.props.baseOperation
-        const operationCheckboxes = [baseOperation, baseOperation + 1]
-            .map(this.renderOperationCheckbox.bind(this))
+        const operationCheckboxes = this.operations.map(this.renderOperationCheckbox.bind(this))
 
         return (
             <div>
@@ -49,6 +47,12 @@ export class OperationSettings extends React.Component<Props, State> {
         )
     }
 
+    private get operations(): Operation[] {
+        const baseOperation = this.props.baseOperation
+
+        return [baseOperation, baseOperation + 1]
+    }
+
     private renderProfile(profile: Profile) {
         return (
             <label key={profile.name}>
@@ -56,10 +60,18 @@ export class OperationSettings extends React.Component<Props, State> {
                     type="radio"
                     name='profile'
                     checked={isEqual(this.state.exampleSettings, profile.exampleSettings)}
+                    disabled={this.isInputDisabled}
                     onChange={this.changeRadioHandler.bind(this, profile)}/>
                 {profile.name}
             </label>
         )
+    }
+
+    private get isInputDisabled(): boolean {
+        return !this.props
+            .taskSettings
+            .operations
+            .some((operation: Operation): boolean => this.operations.includes(operation))
     }
 
     private changeRadioHandler(profile: Profile): void {
@@ -71,7 +83,8 @@ export class OperationSettings extends React.Component<Props, State> {
     }
 
     private renderSettings(exampleSettings: ExampleSettings) {
-        const key = JSON.stringify(exampleSettings)
+        const isInputDisabled=this.isInputDisabled
+        const key = JSON.stringify([isInputDisabled, exampleSettings])
 
         return !this.state.isSettingsOpened ? '' : (
             <table>
@@ -86,19 +99,19 @@ export class OperationSettings extends React.Component<Props, State> {
                 <tr>
                     <th>Значение</th>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='minValue' key={key}/>
+                        <SettingInput exampleSettings={exampleSettings} name='minValue' key={key} disabled={isInputDisabled}/>
                     </td>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='maxValue' key={key}/>
+                        <SettingInput exampleSettings={exampleSettings} name='maxValue' key={key} disabled={isInputDisabled}/>
                     </td>
                 </tr>
                 <tr>
                     <th>Результат</th>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='minResult' key={key}/>
+                        <SettingInput exampleSettings={exampleSettings} name='minResult' key={key} disabled={isInputDisabled}/>
                     </td>
                     <td>
-                        <SettingInput exampleSettings={exampleSettings} name='maxResult' key={key}/>
+                        <SettingInput exampleSettings={exampleSettings} name='maxResult' key={key} disabled={isInputDisabled}/>
                     </td>
                 </tr>
                 </tbody>

@@ -4,6 +4,7 @@ import {ExampleSettings} from "../Example/ExampleSettings";
 interface Props {
     exampleSettings: ExampleSettings
     name: keyof ExampleSettings
+    disabled: boolean
 }
 
 interface State {
@@ -12,16 +13,16 @@ interface State {
 
 export class SettingInput extends React.Component<Props> {
     public readonly state: State = {
-        value: this.props.exampleSettings[this.props.name].toString()
+        value: this.props.exampleSettings[this.props.name].toString(),
     }
 
-    render() {
+   public render() {
         return (
             <input
                 type="number"
                 value={this.state.value}
                 onChange={this.changeHandler.bind(this)}
-            />
+            disabled={this.props.disabled}/>
         )
     }
 
