@@ -4,7 +4,7 @@
 .main_operation_checkox{
   position: relative;
   margin: 0;
-  background-color: #758EB1;
+  background-color: #395273;
   margin-left: 5px;
   margin-right: 6px;
 }
@@ -29,7 +29,7 @@
   height: 12px;
   top: 1px;
   left: 1px;
-  background-color: #758EB1;
+  background-color: #395273;
   border-radius: 3px;
   z-index: 10;
 }
@@ -44,7 +44,7 @@
   cursor: pointer;
 }
 .main_operation_checkox:checked+label{
-  background-color: #758EB1;
+  background-color: #395273;
   color: #fff;
 }
 
@@ -95,7 +95,7 @@ input[type='radio']:checked:before{
   height: 12px;
   top: 0px;
   left: 0px;
-  background-color: #758EB1;
+  background-color: #395273;
   border-radius: 50%;
   z-index: 10;
 }
@@ -113,7 +113,7 @@ input[type='radio']:checked:before{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #758EB1;
+  background-color: #395273;
   color: #fff;
   transition: .3s;
   padding: 0 15px;
@@ -129,7 +129,7 @@ input[type='radio']:checked:before{
 }
 .settings_opened .settings_btn{
   background-color: transparent;
-  color: #758EB1;
+  color: #395273;
   background-color: transparent;
 }
 .settings_opened .settings_btn{

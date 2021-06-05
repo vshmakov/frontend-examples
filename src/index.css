@@ -22,7 +22,7 @@ body, input, a, button, textarea{
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #758EB1;
+  color: #395273;
   font-size: 18px;
 }
 h1{font-size: 20px; font-family: "Montserrat-Regular"}
@@ -76,7 +76,7 @@ input.input_text{
 input.input_text:focus{
   border: none;
   box-shadow: 0 0 0 rgb(0 0 0 / 15%);
-  background-color: #758EB1;
+  background-color: #395273;
   color: #fff;
 }
 input.input_text:hover{
