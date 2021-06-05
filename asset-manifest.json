@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/frontend-examples/static/css/main.ba9d665e.chunk.css",
-    "main.js": "/frontend-examples/static/js/main.3f523615.chunk.js",
-    "main.js.map": "/frontend-examples/static/js/main.3f523615.chunk.js.map",
-    "runtime-main.js": "/frontend-examples/static/js/runtime-main.7280fcc8.js",
-    "runtime-main.js.map": "/frontend-examples/static/js/runtime-main.7280fcc8.js.map",
-    "static/js/2.18908f51.chunk.js": "/frontend-examples/static/js/2.18908f51.chunk.js",
-    "static/js/2.18908f51.chunk.js.map": "/frontend-examples/static/js/2.18908f51.chunk.js.map",
-    "static/js/3.4f1234e6.chunk.js": "/frontend-examples/static/js/3.4f1234e6.chunk.js",
-    "static/js/3.4f1234e6.chunk.js.map": "/frontend-examples/static/js/3.4f1234e6.chunk.js.map",
+    "main.css": "/frontend-examples/static/css/main.7b1e66dd.chunk.css",
+    "main.js": "/frontend-examples/static/js/main.49d140dd.chunk.js",
+    "main.js.map": "/frontend-examples/static/js/main.49d140dd.chunk.js.map",
+    "runtime-main.js": "/frontend-examples/static/js/runtime-main.ec046a72.js",
+    "runtime-main.js.map": "/frontend-examples/static/js/runtime-main.ec046a72.js.map",
+    "static/js/2.390952d4.chunk.js": "/frontend-examples/static/js/2.390952d4.chunk.js",
+    "static/js/2.390952d4.chunk.js.map": "/frontend-examples/static/js/2.390952d4.chunk.js.map",
+    "static/js/3.d598bef8.chunk.js": "/frontend-examples/static/js/3.d598bef8.chunk.js",
+    "static/js/3.d598bef8.chunk.js.map": "/frontend-examples/static/js/3.d598bef8.chunk.js.map",
     "index.html": "/frontend-examples/index.html",
-    "static/css/main.ba9d665e.chunk.css.map": "/frontend-examples/static/css/main.ba9d665e.chunk.css.map",
-    "static/js/2.18908f51.chunk.js.LICENSE.txt": "/frontend-examples/static/js/2.18908f51.chunk.js.LICENSE.txt",
+    "static/css/main.7b1e66dd.chunk.css.map": "/frontend-examples/static/css/main.7b1e66dd.chunk.css.map",
+    "static/js/2.390952d4.chunk.js.LICENSE.txt": "/frontend-examples/static/js/2.390952d4.chunk.js.LICENSE.txt",
     "static/media/index.css": "/frontend-examples/static/media/Montserrat-Regular.3cd78665.ttf"
   },
   "entrypoints": [
-    "static/js/runtime-main.7280fcc8.js",
-    "static/js/2.18908f51.chunk.js",
-    "static/css/main.ba9d665e.chunk.css",
-    "static/js/main.3f523615.chunk.js"
+    "static/js/runtime-main.ec046a72.js",
+    "static/js/2.390952d4.chunk.js",
+    "static/css/main.7b1e66dd.chunk.css",
+    "static/js/main.49d140dd.chunk.js"
   ]
 }
