@@ -83,6 +83,12 @@ input.input_text:hover{
   box-shadow: 0 0 0 rgb(0 0 0 / 15%);
 }
 
+button{
+  background-color: transparent;
+  padding: 0;
+  outline: none;
+  border: none;
+}
 .header_btn{
   padding: 10px;
   cursor: pointer;
