@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/frontend-examples/static/css/main.b66452e2.chunk.css",
-    "main.js": "/frontend-examples/static/js/main.9673cfcb.chunk.js",
-    "main.js.map": "/frontend-examples/static/js/main.9673cfcb.chunk.js.map",
+    "main.css": "/frontend-examples/static/css/main.5dc9afc0.chunk.css",
+    "main.js": "/frontend-examples/static/js/main.b0085f1f.chunk.js",
+    "main.js.map": "/frontend-examples/static/js/main.b0085f1f.chunk.js.map",
     "runtime-main.js": "/frontend-examples/static/js/runtime-main.7280fcc8.js",
     "runtime-main.js.map": "/frontend-examples/static/js/runtime-main.7280fcc8.js.map",
     "static/js/2.18908f51.chunk.js": "/frontend-examples/static/js/2.18908f51.chunk.js",
@@ -10,14 +10,14 @@
     "static/js/3.4f1234e6.chunk.js": "/frontend-examples/static/js/3.4f1234e6.chunk.js",
     "static/js/3.4f1234e6.chunk.js.map": "/frontend-examples/static/js/3.4f1234e6.chunk.js.map",
     "index.html": "/frontend-examples/index.html",
-    "static/css/main.b66452e2.chunk.css.map": "/frontend-examples/static/css/main.b66452e2.chunk.css.map",
+    "static/css/main.5dc9afc0.chunk.css.map": "/frontend-examples/static/css/main.5dc9afc0.chunk.css.map",
     "static/js/2.18908f51.chunk.js.LICENSE.txt": "/frontend-examples/static/js/2.18908f51.chunk.js.LICENSE.txt",
     "static/media/index.css": "/frontend-examples/static/media/Montserrat-Regular.3cd78665.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.7280fcc8.js",
     "static/js/2.18908f51.chunk.js",
-    "static/css/main.b66452e2.chunk.css",
-    "static/js/main.9673cfcb.chunk.js"
+    "static/css/main.5dc9afc0.chunk.css",
+    "static/js/main.b0085f1f.chunk.js"
   ]
 }
