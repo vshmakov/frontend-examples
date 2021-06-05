@@ -51,7 +51,7 @@ export class TaskResult extends React.Component<Props> {
 
         for (let example of task.examples) {
             examples.push(
-                <tr>
+                <tr className={example.isSolved ? 'right-answer' : 'wrong-answer'}>
                     <td>{number}</td>
                     <td>{example.string}</td>
                     <td>{example.answer}</td>
