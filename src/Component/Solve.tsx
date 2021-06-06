@@ -127,7 +127,7 @@ export class Solve extends React.Component<Props, State> {
             return ''
         }
 
-        return isRight ? 'write_answer' : 'wrong_answer'
+        return isRight ? css.write_answer : css.wrong_answer
     }
 
     private getCurrentOrNewTask(): Task {
