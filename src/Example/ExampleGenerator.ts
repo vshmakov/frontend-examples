@@ -19,13 +19,13 @@ export class ExampleGenerator {
         const exampleSettings = [Operation.Add, Operation.Sub].includes(operation) ? taskSettings.addSettings : taskSettings.multSettings
         let example = generator.generate(exampleSettings)
 
-        if (randomFlag(15)) {
+        if (randomFlag(10)) {
             return example
         }
 
         let maxCoefficient = 0
 
-        for (let number = 1; number <= 100; number++) {
+        for (let number = 1; number <= 10; number++) {
             const nextExample = generator.generate(exampleSettings)
             const nextCoefficient = this.coefficientGenerator.getUniqueCoefficient(nextExample, task)
 

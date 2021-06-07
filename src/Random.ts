@@ -3,5 +3,5 @@ export function random(min: number, max: number): number {
 }
 
 export function randomFlag(probability: number): boolean {
-    return probability / 100 <= Math.random()
+    return probability / 100 >= Math.random()
 }
