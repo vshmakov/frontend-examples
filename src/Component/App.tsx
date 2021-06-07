@@ -15,6 +15,7 @@ import {ExampleSettingsNormalizer} from "../Example/ExampleSettingsNormalizer";
 import {TaskResult} from "./TaskResult";
 import {TaskConfig} from "./TaskConfig";
 import {MultGenerator} from "../Example/MultGenerator";
+import {ExampleRepository} from "../Example/ExampleRepository";
 
 const addGenerator = new AddGenerator()
 const multGenerator = new MultGenerator()
@@ -25,7 +26,8 @@ const operationGeneratorCollection = new OperationGeneratorCollection([
     new RevertGenerator(multGenerator),
 ])
 const coefficientGenerator = new CoefficientGenerator()
-const exampleGenerator = new ExampleGenerator(operationGeneratorCollection, coefficientGenerator)
+const exampleRepository = new ExampleRepository()
+const exampleGenerator = new ExampleGenerator(operationGeneratorCollection, coefficientGenerator, exampleRepository)
 const exampleProvider = new ExampleProvider(exampleGenerator)
 const exampleSettingsNormalizer = new ExampleSettingsNormalizer()
 const taskSettingsNormalizer = new TaskSettingsNormalizer(exampleSettingsNormalizer)
@@ -54,6 +56,7 @@ export class App extends React.Component<{}, State> {
             [Page.Solve]: <Solve
                 taskProvider={taskProvider}
                 exampleProvider={exampleProvider}
+                exampleRepository={exampleRepository}
                 openConfiguration={this.openPage.bind(this, Page.TaskConfig)}
                 openTaskResult={this.openPage.bind(this, Page.TaskResult)}/>,
             [Page.TaskResult]: <TaskResult

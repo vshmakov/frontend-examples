@@ -1,17 +1,21 @@
-.options_btn{
+.options_btn {
     transform: rotate(0deg);
     transition: .3s;
 }
-.options_btn:hover{
+
+.options_btn:hover {
     transform: rotate(360deg);
 }
-.answer_input_answer_wrap{
+
+.answer_input_answer_wrap {
     display: flex;
     align-items: center;
     max-width: 100%;
 }
-.answer_btn_agree{
-    height: 50px; min-width: 50px;
+
+.answer_btn_agree {
+    height: 50px;
+    min-width: 50px;
     margin: 0;
     padding: 0;
     border: none;
@@ -19,12 +23,15 @@
     cursor: pointer;
     transition: .3s;
 }
-.state_example_string{
+
+.state_example_string {
     margin: 10px 0;
 }
-.answer_btn_agree.write_answer{
+
+.answer_btn_agree.write_answer {
     background-color: #138b41;
 }
-.answer_btn_agree.wrong_answer{
+
+.answer_btn_agree.wrong_answer {
     background-color: #941b39;
 }

@@ -5,10 +5,12 @@ import {ExampleProvider} from "../Example/ExampleProvider";
 import {Task} from "../Task/Task";
 import css from './Solve.module.css';
 import {sleep} from "../sleep";
+import {ExampleRepository} from "../Example/ExampleRepository";
 
 interface Props {
     taskProvider: TaskProvider
     exampleProvider: ExampleProvider
+    exampleRepository: ExampleRepository
     openConfiguration: () => void
     openTaskResult: () => void
 }
@@ -103,6 +105,10 @@ export class Solve extends React.Component<Props, State> {
 
         const example = this.state.example;
         example.answer = +answer
+
+        if (example.isSolved) {
+            this.props.exampleRepository.addSolvedExample(example)
+        }
 
         if (this.getCurrentOrNewTask().isSolved) {
             this.props.openTaskResult()

@@ -4,11 +4,13 @@ import {random, randomFlag} from "../Random";
 import {Task} from "../Task/Task";
 import {CoefficientGenerator} from "./CoefficientGenerator";
 import {OperationGeneratorCollection} from "./OperationGeneratorCollection";
+import {ExampleRepository} from "./ExampleRepository";
 
 export class ExampleGenerator {
     public constructor(
         private readonly operationGeneratorCollection: OperationGeneratorCollection,
-        private readonly coefficientGenerator: CoefficientGenerator
+        private readonly coefficientGenerator: CoefficientGenerator,
+        private readonly exampleRepository: ExampleRepository
     ) {
     }
 
@@ -19,7 +21,8 @@ export class ExampleGenerator {
         const exampleSettings = [Operation.Add, Operation.Sub].includes(operation) ? taskSettings.addSettings : taskSettings.multSettings
         let example = generator.generate(exampleSettings)
         const needUniqueExample = randomFlag(85)
-        const needMaximumAmplitude = randomFlag(40)
+        const needMaximumAmplitude = randomFlag(50)
+        const solvedExamples=this.exampleRepository.solvedExamples
         let maxCoefficient = 0
 
         for (let number = 1; number <= 10; number++) {
@@ -27,7 +30,7 @@ export class ExampleGenerator {
             let exampleCoefficient = 0
 
             if (needUniqueExample) {
-                exampleCoefficient += this.coefficientGenerator.getUniqueCoefficient(nextExample, task)
+                exampleCoefficient += this.coefficientGenerator.getUniqueCoefficient(nextExample, solvedExamples)
             }
 
             if (needMaximumAmplitude) {

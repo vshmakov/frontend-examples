@@ -1,11 +1,9 @@
 import {Example} from "./Example";
-import {Task} from "../Task/Task";
 import {ExampleSettings} from "./ExampleSettings";
 
 export class CoefficientGenerator {
-    public getUniqueCoefficient(example: Example, task: Task): number {
+    public getUniqueCoefficient(example: Example, solvedExamples: Example[]): number {
         let uniqueCoefficient = 1
-        const solvedExamples = task.solvedExamples
         const solvedExamplesCount = solvedExamples.length || 1
         const keys: (keyof Example)[] = ['first', 'operation', 'second']
 

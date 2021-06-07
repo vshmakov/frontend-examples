@@ -11,9 +11,11 @@
     border: 2px solid transparent;
     text-align: center;
 }
-.right_answer td{
+
+.right_answer td {
     background-color: #dbffdb;
 }
-.wrong_answer td{
+
+.wrong_answer td {
     background-color: #ffd6d6;
 }
