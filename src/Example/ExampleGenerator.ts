@@ -18,20 +18,25 @@ export class ExampleGenerator {
         const taskSettings = task.taskSettings
         const exampleSettings = [Operation.Add, Operation.Sub].includes(operation) ? taskSettings.addSettings : taskSettings.multSettings
         let example = generator.generate(exampleSettings)
-
-        if (randomFlag(10)) {
-            return example
-        }
-
+        const needUniqueExample = randomFlag(85)
+        const needMaximumAmplitude = randomFlag(40)
         let maxCoefficient = 0
 
         for (let number = 1; number <= 10; number++) {
             const nextExample = generator.generate(exampleSettings)
-            const nextCoefficient = this.coefficientGenerator.getUniqueCoefficient(nextExample, task)
+            let exampleCoefficient = 0
 
-            if (nextCoefficient > maxCoefficient) {
+            if (needUniqueExample) {
+                exampleCoefficient += this.coefficientGenerator.getUniqueCoefficient(nextExample, task)
+            }
+
+            if (needMaximumAmplitude) {
+                exampleCoefficient += this.coefficientGenerator.getAmplitudeCoefficient(nextExample, exampleSettings)
+            }
+
+            if (exampleCoefficient > maxCoefficient) {
                 example = nextExample
-                maxCoefficient = nextCoefficient
+                maxCoefficient = exampleCoefficient
             }
         }
 

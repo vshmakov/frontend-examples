@@ -1,5 +1,6 @@
 import {Example} from "./Example";
 import {Task} from "../Task/Task";
+import {ExampleSettings} from "./ExampleSettings";
 
 export class CoefficientGenerator {
     public getUniqueCoefficient(example: Example, task: Task): number {
@@ -21,5 +22,25 @@ export class CoefficientGenerator {
         }
 
         return uniqueCoefficient
+    }
+
+    public getAmplitudeCoefficient(example: Example, exampleSettings: ExampleSettings): number {
+        let amplitudeCoefficient = 0
+        amplitudeCoefficient += this.getAmplitude(example.first, exampleSettings.minValue, exampleSettings.maxValue)
+        amplitudeCoefficient += this.getAmplitude(example.second, exampleSettings.minValue, exampleSettings.maxValue)
+
+        return 1 - amplitudeCoefficient / 2
+    }
+
+    private getAmplitude(value: number, min: number, max: number): number {
+        const middle = (min + max) / 2
+        const amplitude = Math.abs(middle - value)
+        let delta = Math.abs(max - min)
+
+        if (0 === delta) {
+            delta = 1
+        }
+
+        return amplitude / delta
     }
 }
