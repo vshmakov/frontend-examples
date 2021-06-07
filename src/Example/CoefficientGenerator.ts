@@ -1,6 +1,5 @@
 import {Example} from "./Example";
 import {Task} from "../Task/Task";
-import {isEqual} from "../ObjectManipulator";
 
 export class CoefficientGenerator {
     public getUniqueCoefficient(example: Example, task: Task): number {
