@@ -5,17 +5,18 @@ export class CoefficientGenerator {
     public getUniqueCoefficient(example: Example, solvedExamples: Example[]): number {
         let uniqueCoefficient = 1
         const solvedExamplesCount = solvedExamples.length || 1
+        const base = solvedExamplesCount ** 0.5
         const keys: (keyof Example)[] = ['first', 'operation', 'second']
 
         for (let solvedExample of solvedExamples) {
             const isEqualExample = keys.every((key: keyof Example): boolean => example[key] === solvedExample[key])
 
             if (isEqualExample) {
-                uniqueCoefficient -= 60 / 100 / solvedExamplesCount
+                uniqueCoefficient -= 60 / 100 / base
             }
 
             if (example.solution === solvedExample.solution) {
-                uniqueCoefficient -= 40 / 100 / solvedExamplesCount
+                uniqueCoefficient -= 40 / 100 / base
             }
         }
 
