@@ -4,8 +4,7 @@ import {ExampleSettings} from "./ExampleSettings";
 export class CoefficientGenerator {
     public getUniqueCoefficient(example: Example, solvedExamples: Example[]): number {
         let uniqueCoefficient = 1
-        const solvedExamplesCount = solvedExamples.length || 1
-        const base = solvedExamplesCount ** 0.5
+        const base = 20
         const keys: (keyof Example)[] = ['first', 'operation', 'second']
 
         for (let solvedExample of solvedExamples) {

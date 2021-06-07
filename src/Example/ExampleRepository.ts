@@ -1,6 +1,7 @@
 import {Example} from "./Example";
 
 const solvedExamplesKey = 'solved-examples'
+const examplesLimit = 50
 
 export class ExampleRepository {
     public get solvedExamples(): Example[] {
@@ -16,7 +17,7 @@ export class ExampleRepository {
     public addSolvedExample(example: Example): void {
         let solvedExamples = this.solvedExamples
         solvedExamples.push(example)
-        solvedExamples = solvedExamples.slice(-50)
+        solvedExamples = solvedExamples.slice(-examplesLimit)
         localStorage.setItem(solvedExamplesKey, JSON.stringify(solvedExamples))
     }
 }

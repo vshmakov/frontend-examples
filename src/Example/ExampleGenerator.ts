@@ -21,7 +21,7 @@ export class ExampleGenerator {
         const exampleSettings = [Operation.Add, Operation.Sub].includes(operation) ? taskSettings.addSettings : taskSettings.multSettings
         let example = generator.generate(exampleSettings)
         const needUniqueExample = randomFlag(85)
-        const needMaximumAmplitude = randomFlag(50)
+        const needMaximumAmplitude = randomFlag(40)
         const solvedExamples=this.exampleRepository.solvedExamples
         let maxCoefficient = 0
 

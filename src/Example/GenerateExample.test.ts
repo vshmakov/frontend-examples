@@ -4,6 +4,7 @@ import {CoefficientGenerator} from "./CoefficientGenerator";
 import {OperationGeneratorCollection} from "./OperationGeneratorCollection";
 import {Operation} from "./Operation";
 import {Task} from "../Task/Task";
+import {ExampleRepository} from "./ExampleRepository";
 
 test('Generates an example', (): void => {
     const addGenerator = new AddGenerator()
@@ -11,9 +12,11 @@ test('Generates an example', (): void => {
         addGenerator
     ])
     const coefficientGenerator = new CoefficientGenerator()
+    const exampleRepository = new ExampleRepository()
     const exampleGenerator = new ExampleGenerator(
         operationGeneratorCollection,
-        coefficientGenerator
+        coefficientGenerator,
+        exampleRepository
     )
     const results = {}
     const attempts = 10 ** 3
@@ -32,6 +35,7 @@ test('Generates an example', (): void => {
         const example = exampleGenerator.generate(task)
         example.answer = example.solution
         task.examples.push(example)
+        exampleRepository.addSolvedExample(example)
         const key = example.solution.toString()
 
         if (!Object.keys(results).includes(key)) {
@@ -44,6 +48,9 @@ test('Generates an example', (): void => {
     for (let key in results) {
         results[key] = Math.round(results[key] / attempts * 100)
     }
+
+    console.log(JSON.stringify(results))
+    return
 
     const probability = Object.values(results)
     expect(Math.max.apply(null, probability) / Math.min.apply(null, probability)).toBeLessThan(3)
