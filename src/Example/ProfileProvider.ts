@@ -32,6 +32,15 @@ export class ProfileProvider {
         const addProfiles: Profile[] = [
             this.defaultAddProfile,
             {
+                name: 'В пределах 15',
+                exampleSettings: {
+                    minValue: 2,
+                    maxValue: 13,
+                    minResult: 0,
+                    maxResult: 0
+                }
+            },
+            {
                 name: 'В пределах 20',
                 exampleSettings: {
                     minValue: 1,
