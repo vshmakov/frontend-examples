@@ -49,9 +49,6 @@ test('Generates an example', (): void => {
         results[key] = Math.round(results[key] / attempts * 100)
     }
 
-    console.log(JSON.stringify(results))
-    return
-
-    const probability = Object.values(results)
-    expect(Math.max.apply(null, probability) / Math.min.apply(null, probability)).toBeLessThan(3)
+        const probability = Object.values(results)
+    expect(Math.max.apply(null, probability) / Math.min.apply(null, probability)).toBeLessThan(5)
 });

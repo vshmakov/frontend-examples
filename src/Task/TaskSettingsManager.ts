@@ -17,7 +17,7 @@ export class TaskSettingsManager {
 
         if (null === item) {
             return {
-                examplesCount: 10,
+                examplesCount: 20,
                 operations: [Operation.Add],
                 addSettings: this.profileProvider.defaultAddProfile.exampleSettings,
                 multSettings: this.profileProvider.defaultMultProfile.exampleSettings

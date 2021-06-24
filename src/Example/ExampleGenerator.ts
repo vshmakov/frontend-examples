@@ -22,7 +22,7 @@ export class ExampleGenerator {
         let example = generator.generate(exampleSettings)
         const needUniqueExample = randomFlag(85)
         const needMaximumAmplitude = randomFlag(40)
-        const solvedExamples=this.exampleRepository.solvedExamples
+        const solvedExamples = this.exampleRepository.solvedExamples
         let maxCoefficient = 0
 
         for (let number = 1; number <= 10; number++) {

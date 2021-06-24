@@ -8,7 +8,7 @@ export class TaskSettingsNormalizer {
 
     public normalize(taskSettings: TaskSettings): void {
         if (taskSettings.examplesCount < 1) {
-            taskSettings.examplesCount = 10
+            taskSettings.examplesCount = 20
         }
 
         if (0 === taskSettings.operations.length) {
