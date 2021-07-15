@@ -2,8 +2,8 @@ import {Task} from "./Task";
 import {getObjectKeys} from "../ObjectManipulator";
 
 enum Rating {
-    Super = 'Ты молодец!',
-Good = 'Хороший результат!',
+    Super = 'Оценка: 5. Ты молодец!',
+Good = 'Оценка: 4. Хороший результат!',
 TryAgain = 'Попробуй еще раз!',
 }
 
