@@ -1,13 +1,19 @@
 import {Task} from "./Task";
 import {getObjectKeys} from "../ObjectManipulator";
 
+enum Rating {
+    Super = 'Ты молодец!',
+Good = 'Хороший результат!',
+TryAgain = 'Попробуй еще раз!',
+}
+
 export class RatingGenerator {
     private readonly coefficients = {
         '10': [5, 6, 8, 9],
         '20': [14, 15, 17, 19],
     }
 
-    public getRating(task: Task): number {
+    public getRating(task: Task): Rating {
         const coeeficients = this.getTaskCoefficients(task)
         let rating = 0
 
@@ -17,7 +23,20 @@ export class RatingGenerator {
             }
         }
 
-        return rating + 1
+        return this.getRatingByNumber(rating + 1)
+    }
+
+    private getRatingByNumber(number: number): Rating {
+        switch (number) {
+            case 5:
+                return Rating.Super
+
+            case 4:
+                return Rating.Good
+
+            default:
+                return Rating.TryAgain
+        }
     }
 
     private getTaskCoefficients(task: Task): number[] {

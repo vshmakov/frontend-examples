@@ -25,7 +25,7 @@ export class TaskResult extends React.Component<Props> {
                     <ul>
                         <li>Решено примеров: {task.solvedExamplesCount}</li>
                         <li>Ошибок: {task.wrongExamplesCount}</li>
-                        <li>Оценка: {this.props.ratingGenerator.getRating(task)}</li>
+                        <li>{this.props.ratingGenerator.getRating(task)}</li>
                     </ul>
                     <h2>Примеры</h2>
                     <table className={css.result_table}>
