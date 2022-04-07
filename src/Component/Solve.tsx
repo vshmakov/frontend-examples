@@ -6,6 +6,7 @@ import {Task} from "../Task/Task";
 import css from './Solve.module.css';
 import {sleep} from "../sleep";
 import {ExampleRepository} from "../Example/ExampleRepository";
+import {AnswerButtonSvg} from "./AnswerButtonSvg";
 
 interface Props {
     taskProvider: TaskProvider
@@ -65,18 +66,7 @@ export class Solve extends React.Component<Props, State> {
                                 className={`${css.answer_btn_agree} ${this.answerResultClass}`}
                                 type="submit"
                                 title="Ответить">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25.828" height="16.828"
-                                     viewBox="0 0 25.828 16.828">
-                                    <g id="Сгруппировать_7" data-name="Сгруппировать 7"
-                                       transform="translate(-498.086 -285.473)">
-                                        <line id="Линия_13" data-name="Линия 13" x2="9" y2="9"
-                                              transform="translate(499.5 291.887)" fill="none" stroke="#fff"
-                                              strokeLinecap="round" strokeWidth="2"/>
-                                        <line id="Линия_14" data-name="Линия 14" y1="14" x2="14"
-                                              transform="translate(508.5 286.887)" fill="none" stroke="#fff"
-                                              strokeLinecap="round" strokeWidth="2"/>
-                                    </g>
-                                </svg>
+                                <AnswerButtonSvg/>
                             </button>
                         </div>
                     </form>
@@ -94,11 +84,6 @@ export class Solve extends React.Component<Props, State> {
     private async submitHandler(event: React.FormEvent<HTMLFormElement>): Promise<void> {
         event.preventDefault()
         const answer = this.state.answer;
-
-        if ('' === answer) {
-            return
-        }
-
         this.setState({
             answer: ''
         })
@@ -108,6 +93,8 @@ export class Solve extends React.Component<Props, State> {
 
         if (example.isSolved) {
             this.props.exampleRepository.addSolvedExample(example)
+        } else {
+            this.getCurrentOrNewTask().taskSettings.examplesCount += 5
         }
 
         if (this.getCurrentOrNewTask().isSolved) {
