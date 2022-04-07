@@ -90,14 +90,17 @@ export class Solve extends React.Component<Props, State> {
 
         const example = this.state.example;
         example.answer = +answer
+        const task = this.getCurrentOrNewTask()
 
         if (example.isSolved) {
             this.props.exampleRepository.addSolvedExample(example)
         } else {
-            this.getCurrentOrNewTask().taskSettings.examplesCount += 5
+            if (task.taskSettings.addExamplesOnError) {
+                task.taskSettings.examplesCount += 5
+            }
         }
 
-        if (this.getCurrentOrNewTask().isSolved) {
+        if (task.isSolved) {
             this.props.openTaskResult()
 
             return

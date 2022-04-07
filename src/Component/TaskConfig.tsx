@@ -14,12 +14,14 @@ interface Props {
 
 interface State {
     examplesCount: string
+    addExamplesOnError: boolean
     taskSettings: TaskSettings
 }
 
 export class TaskConfig extends React.Component<Props, State> {
     public readonly state: State = {
         examplesCount: this.getCurrentTaskSettings().examplesCount.toString(),
+        addExamplesOnError: this.getCurrentTaskSettings().addExamplesOnError,
         taskSettings: this.getCurrentTaskSettings()
     }
 
@@ -30,17 +32,24 @@ export class TaskConfig extends React.Component<Props, State> {
             <div className='wrap'>
                 <div className='header'>
                     <h1>Настройки задания</h1>
-                        <StartNewTaskButton onClick={this.clickHandler.bind(this)}/>
+                    <StartNewTaskButton onClick={this.clickHandler.bind(this)}/>
                 </div>
                 <div className="container">
                     Количество примеров:
                     <div>
-                    <input
-                    className='input_text'
-                        type="number"
-                        value={this.state.examplesCount}
-                        onChange={this.changeExamplesCountHandler.bind(this)}/>
+                        <input
+                            className='input_text'
+                            type="number"
+                            value={this.state.examplesCount}
+                            onChange={this.changeExamplesCountHandler.bind(this)}/>
                     </div>
+                    <label>
+                        Добавлять 5 примеров при ошибке
+                        <input
+                            type="checkbox"
+                            checked={this.state.addExamplesOnError}
+                            onChange={this.changeAddExamplesOnErrorHandler.bind(this)}/>
+                    </label>
                     <OperationSettings
                         baseOperation={Operation.Add}
                         taskSettings={taskSettings}
@@ -62,6 +71,15 @@ export class TaskConfig extends React.Component<Props, State> {
         taskSettings.examplesCount = +value
         this.setState({
             examplesCount: value,
+        })
+    }
+
+    private changeAddExamplesOnErrorHandler(event: React.ChangeEvent<HTMLInputElement>): void {
+        const taskSettings = this.state.taskSettings
+        const checked = event.target.checked
+        taskSettings.addExamplesOnError=checked
+        this.setState({
+            addExamplesOnError: checked,
         })
     }
 
