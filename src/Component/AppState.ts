@@ -14,6 +14,11 @@ import {TaskSettingsManager} from "../Task/TaskSettingsManager";
 import {TaskProvider} from "../Task/TaskProvider";
 import {RatingGenerator} from "../Task/RatingGenerator";
 import {Page} from "./Page";
+import {TaskState} from "./TaskState";
+import {Example} from "../Example/Example";
+import React from "react";
+import {sleep} from "../sleep";
+import {Task} from "../Task/Task";
 
 const addGenerator = new AddGenerator()
 const multGenerator = new MultGenerator()
@@ -36,18 +41,53 @@ const ratingGenerator = new RatingGenerator()
 
 export class AppState {
     public page: Page = Page.Solve
+    public example: Example = this.getActualOrNewExample()
+    public isRight: boolean | null = null
+    public readonly task = this.getCurrentOrNewTask()
 
     public constructor() {
         makeAutoObservable(this)
     }
-
 
     public startNewTask(): void {
         taskProvider.cleanCurrentTask()
         this.openPage(Page.Solve)
     }
 
-    private openPage(page: Page): void {
+    public openPage(page: Page): void {
         this.page = page
+    }
+
+    public async answer(answer: number): Promise<void> {
+        const example = this.example
+        example.answer = answer
+        const task = this.task
+
+        if (example.isSolved) {
+            exampleRepository.addSolvedExample(example)
+        } else {
+            if (task.taskSettings.addExamplesOnError) {
+                task.taskSettings.examplesCount += 5
+            }
+        }
+
+        if (task.isSolved) {
+            this.openPage(Page.TaskResult)
+
+            return
+        }
+
+        this.example = this.getActualOrNewExample()
+        this.isRight = example.isSolved
+        await sleep(1000)
+        this.isRight = null
+    }
+
+    private getCurrentOrNewTask(): Task {
+        return taskProvider.getCurrentOrNewTask();
+    }
+
+    private getActualOrNewExample(): Example {
+        return exampleProvider.getActualOrNewExample(this.getCurrentOrNewTask())
     }
 }
