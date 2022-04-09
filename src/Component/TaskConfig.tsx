@@ -5,12 +5,7 @@ import {StartNewTaskButton} from "./StartNewTaskButton";
 import {OperationSettings} from "./OperationSettings";
 import {Operation} from "../Example/Operation";
 import {ProfileProvider} from "../Example/ProfileProvider";
-
-interface Props {
-    taskSettingsManager: TaskSettingsManager
-    profileProvider: ProfileProvider
-    startNewTask: () => void
-}
+import {AppStateProps} from "./AppStateProps";
 
 interface State {
     examplesCount: string
@@ -18,7 +13,7 @@ interface State {
     taskSettings: TaskSettings
 }
 
-export class TaskConfig extends React.Component<Props, State> {
+export class TaskConfig extends React.Component<AppStateProps, State> {
     public readonly state: State = {
         examplesCount: this.getCurrentTaskSettings().examplesCount.toString(),
         addExamplesOnError: this.getCurrentTaskSettings().addExamplesOnError,

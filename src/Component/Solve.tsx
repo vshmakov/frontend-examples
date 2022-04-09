@@ -7,14 +7,7 @@ import css from './Solve.module.css';
 import {sleep} from "../sleep";
 import {ExampleRepository} from "../Example/ExampleRepository";
 import {AnswerButtonSvg} from "./AnswerButtonSvg";
-
-interface Props {
-    taskProvider: TaskProvider
-    exampleProvider: ExampleProvider
-    exampleRepository: ExampleRepository
-    openConfiguration: () => void
-    openTaskResult: () => void
-}
+import {AppStateProps} from "./AppStateProps";
 
 interface State {
     example: Example
@@ -22,7 +15,7 @@ interface State {
     isRight: boolean | null
 }
 
-export class Solve extends React.Component<Props, State> {
+export class Solve extends React.Component<AppStateProps, State> {
     public readonly state: State = {
         example: this.getActualOrNewExample(),
         answer: '',

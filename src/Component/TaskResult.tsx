@@ -4,14 +4,9 @@ import {RatingGenerator} from "../Task/RatingGenerator";
 import {StartNewTaskButton} from "./StartNewTaskButton";
 import {TaskProvider} from "../Task/TaskProvider";
 import css from './TaskResult.module.css';
+import {AppStateProps} from "./AppStateProps";
 
-interface Props {
-    ratingGenerator: RatingGenerator
-    taskProvider: TaskProvider
-    startNewTask: () => void
-}
-
-export class TaskResult extends React.Component<Props> {
+export class TaskResult extends React.Component<AppStateProps> {
     public render() {
         const task = this.props.taskProvider.getCurrentOrNewTask()
 

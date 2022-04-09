@@ -1,6 +1,7 @@
-import React from "react";
+import React, {ReactElement} from "react";
+import {observer} from "mobx-react";
 
-export function AnswerButtonSvg() {
+export const AnswerButtonSvg = observer((): ReactElement => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="25.828" height="16.828"
              viewBox="0 0 25.828 16.828">
@@ -15,4 +16,4 @@ export function AnswerButtonSvg() {
             </g>
         </svg>
     )
-}
+})
