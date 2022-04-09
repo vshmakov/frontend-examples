@@ -1,0 +1,11 @@
+version: "3.1"
+
+services:
+    node:
+        image: node:14
+        volumes:
+            - .:/var/www
+        working_dir: /var/www
+        entrypoint: npm start
+        ports:
+            - 3001:3000
