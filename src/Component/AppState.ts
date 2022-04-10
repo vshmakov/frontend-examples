@@ -19,6 +19,7 @@ import {Example} from "../Example/Example";
 import React from "react";
 import {sleep} from "../sleep";
 import {Task} from "../Task/Task";
+import {TaskSettings} from "../Task/TaskSettings";
 
 const addGenerator = new AddGenerator()
 const multGenerator = new MultGenerator()
@@ -34,8 +35,6 @@ const exampleGenerator = new ExampleGenerator(operationGeneratorCollection, coef
 const exampleProvider = new ExampleProvider(exampleGenerator)
 const exampleSettingsNormalizer = new ExampleSettingsNormalizer()
 const taskSettingsNormalizer = new TaskSettingsNormalizer(exampleSettingsNormalizer)
-const profileProvider = new ProfileProvider(exampleSettingsNormalizer)
-const taskSettingsManager = new TaskSettingsManager(taskSettingsNormalizer, profileProvider)
 const taskProvider = new TaskProvider(taskSettingsManager)
 
 export class AppState {
@@ -43,7 +42,9 @@ export class AppState {
     public example: Example = this.getActualOrNewExample()
     public isRight: boolean | null = null
     public readonly task = this.getCurrentOrNewTask()
-public  readonly ratingGenerator = new RatingGenerator()
+    public readonly ratingGenerator = new RatingGenerator()
+    public readonly taskSettingsManager = new TaskSettingsManager(taskSettingsNormalizer, profileProvider)
+    public readonly profileProvider = new ProfileProvider(exampleSettingsNormalizer)
 
     public constructor() {
         makeAutoObservable(this)
@@ -89,5 +90,12 @@ public  readonly ratingGenerator = new RatingGenerator()
 
     private getActualOrNewExample(): Example {
         return exampleProvider.getActualOrNewExample(this.getCurrentOrNewTask())
+    }
+
+    public getCurrentTaskSettings(): TaskSettings {
+        const taskSettings = this.taskSettingsManager.getCurrentSettings()
+        makeAutoObservable(taskSettings)
+
+        return taskSettings
     }
 }
