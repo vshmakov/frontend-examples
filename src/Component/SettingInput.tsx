@@ -1,38 +1,22 @@
 import React from "react";
 import {ExampleSettings} from "../Example/ExampleSettings";
+import {observer} from "mobx-react";
+import {ExampleSettingsProps} from "./ExampleSettingsProps";
+import {IsDisabledProps} from "./IsDisabledProps";
 
-interface Props {
-    exampleSettings: ExampleSettings
-    name: keyof ExampleSettings
-    disabled: boolean
-}
-
-interface State {
-    value: string
-}
-
-export class SettingInput extends React.Component<Props> {
-    public readonly state: State = {
-        value: this.props.exampleSettings[this.props.name].toString(),
-    }
-
-   public render() {
-        return (
-            <input
-                className='input_text'
-                type="number"
-                value={this.state.value}
-                onChange={this.changeHandler.bind(this)}
-                disabled={this.props.disabled}/>
-        )
-    }
-
-    private changeHandler(event: React.ChangeEvent<HTMLInputElement>): void {
-        const exampleSettings = this.props.exampleSettings
-        const value = event.target.value
-        exampleSettings[this.props.name] = +value
-        this.setState({
-            value: value
-        })
-    }
-}
+export const SettingInput = observer(({
+                                          name,
+                                          exampleSettings,
+                                          isDisabled
+                                      }: { name: keyof ExampleSettings } & ExampleSettingsProps & IsDisabledProps) => {
+    return (
+        <input
+            className='input_text'
+            type="number"
+            value={exampleSettings[name].toString()}
+            onChange={setInputValue((value: string): void => {
+                exampleSettings[name] = +value
+            })}
+            disabled={isDisabled}/>
+    );
+})
