@@ -61,7 +61,8 @@ export class Solve extends React.Component<Props, State> {
                                 className={css.input_text + ' input_text'}
                                 type="text"
                                 value={this.state.answer}
-                                onChange={this.changeHandler.bind(this)}/>
+                                onChange={this.changeHandler.bind(this)}
+                            required={true}/>
                             <button
                                 className={`${css.answer_btn_agree} ${this.answerResultClass}`}
                                 type="submit"
