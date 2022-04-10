@@ -39,8 +39,9 @@ export class AppState {
     public readonly ratingGenerator = new RatingGenerator()
     public readonly profileProvider = new ProfileProvider(exampleSettingsNormalizer)
     public readonly taskSettingsManager = new TaskSettingsManager(taskSettingsNormalizer, this.profileProvider)
-    public readonly taskProvider = new TaskProvider(this.taskSettingsManager)
-    public readonly task = this.taskProvider.getCurrentOrNewTask()
+    public readonly taskProvider = new TaskProvider()
+    public readonly taskSettings = this.getCurrentTaskSettings()
+    public readonly task = this.taskProvider.getCurrentOrNewTask(this.taskSettings)
     public example: Example = this.getActualOrNewExample()
 
     public constructor() {
@@ -82,10 +83,10 @@ export class AppState {
     }
 
     private getActualOrNewExample(): Example {
-        return exampleProvider.getActualOrNewExample(this.taskProvider.getCurrentOrNewTask())
+        return exampleProvider.getActualOrNewExample(this.task)
     }
 
-    public getCurrentTaskSettings(): TaskSettings {
+    private getCurrentTaskSettings(): TaskSettings {
         const taskSettings = this.taskSettingsManager.getCurrentSettings()
         makeAutoObservable(taskSettings)
 

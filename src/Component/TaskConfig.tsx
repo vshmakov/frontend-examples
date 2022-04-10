@@ -1,13 +1,15 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useState} from "react";
 import {StartNewTaskButton} from "./StartNewTaskButton";
 import {OperationSettings} from "./OperationSettings";
 import {Operation} from "../Example/Operation";
 import {AppStateProps} from "./AppStateProps";
 import {observer} from "mobx-react";
 import {setInputValue} from "./SetInputValue";
+import {runInAction} from "mobx";
 
 export const TaskConfig = observer(({appState}: AppStateProps): ReactElement => {
-    const taskSettings = appState.getCurrentTaskSettings()
+    const taskSettings = appState.taskSettings
+    const [examplesCount, setExamplesCount]=useState(taskSettings.examplesCount.toString())
 
     return (
         <div className='wrap'>
@@ -24,10 +26,11 @@ export const TaskConfig = observer(({appState}: AppStateProps): ReactElement => 
                     <input
                         className='input_text'
                         type="number"
-                        value={taskSettings.examplesCount}
-                        onChange={setInputValue((count: string): void => {
+                        value={examplesCount}
+                        onChange={setInputValue((count: string): void => runInAction((): void => {
                             taskSettings.examplesCount = +count
-                        })}/>
+                            setExamplesCount(count)
+                        }))}/>
                 </div>
                 <label>
                     Добавлять 5 примеров при ошибке
