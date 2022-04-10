@@ -1,39 +1,49 @@
 import React, {ReactElement, useState} from "react";
-import {ExampleSettings} from "../Example/ExampleSettings";
-import {TaskSettings} from "../Task/TaskSettings";
 import {Profile} from "../Example/Profile";
 import css from './OperationSettings.module.css';
 import {observer} from "mobx-react";
 import {OpenSettingsSvg} from "./OpenSettingsSvg";
 import {BaseOperation} from "./BaseOperation";
 import {getOperations} from "./GetOperations";
+import {Operation} from "../Example/Operation";
+import {OperationCheckbox} from "./OperationCheckbox";
+import {ExampleSettingsProps} from "./ExampleSettingsProps";
+import {TaskSettingsProps} from "./TaskSettingsProps";
+import {ProfileRadio} from "./ProfileRadio";
+import {DetailedSettings} from "./DetailedSettings";
 
-
-interface Props extends Props1 {
+interface Props {
     baseOperation: BaseOperation
-    taskSettings: TaskSettings
-    exampleSettings: ExampleSettings
     profiles: Profile[]
 }
 
-export const OperationSettings = observer(({baseOperation}: Props): ReactElement => {
+export const OperationSettings = observer(({
+                                               baseOperation,
+                                               taskSettings,
+                                               exampleSettings,
+                                               profiles
+                                           }: Props & TaskSettingsProps & ExampleSettingsProps): ReactElement => {
     const [isSettingsOpened, setSettingsOpened] = useState(false)
-    const operationCheckboxes getOperations(baseOperation).map(this.renderOperationCheckbox.bind(this))
+    const operations = getOperations(baseOperation)
+    const isDisabled = !operations.some((operation: Operation): boolean => taskSettings.operations.includes(operation))
 
     return (
         <div className={css.settings_container}>
             <div className={css.operation_checkboxes_list}>
-                {operationCheckboxes}
+                {operations.map((operation: Operation): ReactElement =>
+                    <OperationCheckbox taskSettings={taskSettings} operation={operation}/>)}
             </div>
             <form>
-                {this.props.profiles.map(this.renderProfile.bind(this))}
+                {profiles.map((profile: Profile): ReactElement => <ProfileRadio profile={profile}
+                                                                                isDisabled={isDisabled}
+                                                                                exampleSettings={exampleSettings}/>)}
             </form>
             <div className={`${css.settings} ${!this.state.isSettingsOpened ? "" : css.settings_opened}`}>
-                <button className={css.settings_btn}                        onClick={(): void => setSettingsOpened(!isSettingsOpened)}>
+                <button className={css.settings_btn} onClick={(): void => setSettingsOpened(!isSettingsOpened)}>
                     Детальные настройки
                     <OpenSettingsSvg isSettingsOpened={isSettingsOpened}/>
                 </button>
-                {this.renderSettings(this.state.exampleSettings)}
+                {isSettingsOpened ? <DetailedSettings isDisabled={isDisabled}/> : null}
             </div>
         </div>
     )
