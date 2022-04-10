@@ -38,12 +38,12 @@ export const OperationSettings = observer(({
                                                                                 isDisabled={isDisabled}
                                                                                 exampleSettings={exampleSettings}/>)}
             </form>
-            <div className={`${css.settings} ${!this.state.isSettingsOpened ? "" : css.settings_opened}`}>
+            <div className={`${css.settings} ${!isSettingsOpened ? "" : css.settings_opened}`}>
                 <button className={css.settings_btn} onClick={(): void => setSettingsOpened(!isSettingsOpened)}>
                     Детальные настройки
                     <OpenSettingsSvg isSettingsOpened={isSettingsOpened}/>
                 </button>
-                {isSettingsOpened ? <DetailedSettings isDisabled={isDisabled}/> : null}
+                {isSettingsOpened ? <DetailedSettings exampleSettings={exampleSettings} isDisabled={isDisabled}/> : null}
             </div>
         </div>
     )

@@ -3,7 +3,7 @@ import {Profile} from "../Example/Profile";
 import {ExampleSettingsProps} from "./ExampleSettingsProps";
 import React, {ReactElement} from "react";
 import css from "./OperationSettings.module.css";
-import {isEqual} from "../ObjectManipulator";
+import {copyValues, isEqual} from "../ObjectManipulator";
 import {IsDisabledProps} from "./IsDisabledProps";
 
 export const ProfileRadio = observer(({
@@ -18,17 +18,8 @@ export const ProfileRadio = observer(({
                 name='profile'
                 checked={!isDisabled && isEqual(exampleSettings, profile.exampleSettings)}
                 disabled={isDisabled}
-                onChange={this.changeRadioHandler.bind(this, profile)}/>
+                onChange={(): void => copyValues(exampleSettings, profile.exampleSettings)}/>
             {profile.name}
         </label>
     )
 })
-
-
-function changeRadioHandler(profile: Profile): void {
-    const exampleSettings = this.state.exampleSettings
-    copyValues(exampleSettings, profile.exampleSettings)
-    this.setState({
-        exampleSettings: exampleSettings
-    })
-}

@@ -3,6 +3,7 @@ import {ExampleSettings} from "../Example/ExampleSettings";
 import {observer} from "mobx-react";
 import {ExampleSettingsProps} from "./ExampleSettingsProps";
 import {IsDisabledProps} from "./IsDisabledProps";
+import {setInputValue} from "./SetInputValue";
 
 export const SettingInput = observer(({
                                           name,

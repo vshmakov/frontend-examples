@@ -1,6 +1,7 @@
 import {observer} from "mobx-react";
 import React, {ReactElement} from "react";
 import css from "./TaskResult.module.css";
+import {Example} from "../Example/Example";
 
 export const ExampleRow = observer(({example, number}: { example: Example, number: number }): ReactElement => {
     return (

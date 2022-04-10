@@ -22,27 +22,20 @@ export const OperationCheckbox = observer(({
                    id={'MainOperationCheckox' + operation}
                    type="checkbox"
                    checked={taskSettings.operations.includes(operation)}
-                   onChange={this.changeCheckboxHandler.bind(this, operation)}/>
+                   onChange={(): void => {
+                       let operations = taskSettings.operations
+
+                       if (!operations.includes(operation)) {
+                           operations.push(operation)
+                       } else {
+                           operations = operations.filter((enabledOperation: Operation): boolean => enabledOperation !== operation)
+                       }
+
+                       taskSettings.operations = operations
+                   }}/>
             <label key={operation} htmlFor={'MainOperationCheckox' + operation}>
                 {operationNames[operation]}
             </label>
         </div>
     )
 })
-
-
-
-function changeCheckboxHandler(operation: Operation): void {
-    const taskSettings = this.state.taskSettings
-    const enabledOperations = taskSettings.operations
-        .filter((enabledOperation: Operation): boolean => enabledOperation !== operation)
-
-    if (!taskSettings.operations.includes(operation)) {
-        enabledOperations.push(operation)
-    }
-
-    taskSettings.operations = enabledOperations
-    this.setState({
-        taskSettings: taskSettings
-    })
-}

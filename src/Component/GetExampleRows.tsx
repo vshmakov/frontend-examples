@@ -1,5 +1,6 @@
 import {ExampleRow} from "./ExampleRow";
 import React, {ReactElement} from "react";
+import {Task} from "../Task/Task";
 
 export function getExampleRows(task: Task): ReactElement[] {
     const examples = []

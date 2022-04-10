@@ -5,6 +5,9 @@ import {AppStateProps} from "./AppStateProps";
 import {observer} from "mobx-react";
 import {TaskSettingsButtonSvg} from "./TaskSettingsButtonSvg";
 import {getAnswerResultClass} from "./GetAnswerResultClass";
+import {Page} from "./Page";
+import {preventDefault} from "./PreventDefault";
+import {setInputValue} from "./SetInputValue";
 
 export const Solve = observer(({appState}: AppStateProps): ReactElement => {
     const [answer, setAnswer] = useState('')

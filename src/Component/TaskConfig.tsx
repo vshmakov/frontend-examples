@@ -4,6 +4,7 @@ import {OperationSettings} from "./OperationSettings";
 import {Operation} from "../Example/Operation";
 import {AppStateProps} from "./AppStateProps";
 import {observer} from "mobx-react";
+import {setInputValue} from "./SetInputValue";
 
 export const TaskConfig = observer(({appState}: AppStateProps): ReactElement => {
     const taskSettings = appState.getCurrentTaskSettings()
@@ -34,7 +35,7 @@ export const TaskConfig = observer(({appState}: AppStateProps): ReactElement => 
                         type="checkbox"
                         checked={taskSettings.addExamplesOnError}
                         onChange={(): void => {
-                            taskSettings.addSettings = !taskSettings.addSettings
+                            taskSettings.addExamplesOnError = !taskSettings.addExamplesOnError
                         }}/>
                 </label>
                 <OperationSettings

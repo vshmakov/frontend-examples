@@ -14,9 +14,7 @@ import {TaskSettingsManager} from "../Task/TaskSettingsManager";
 import {TaskProvider} from "../Task/TaskProvider";
 import {RatingGenerator} from "../Task/RatingGenerator";
 import {Page} from "./Page";
-import {TaskState} from "./TaskState";
 import {Example} from "../Example/Example";
-import React from "react";
 import {sleep} from "../sleep";
 import {Task} from "../Task/Task";
 import {TaskSettings} from "../Task/TaskSettings";
@@ -35,23 +33,23 @@ const exampleGenerator = new ExampleGenerator(operationGeneratorCollection, coef
 const exampleProvider = new ExampleProvider(exampleGenerator)
 const exampleSettingsNormalizer = new ExampleSettingsNormalizer()
 const taskSettingsNormalizer = new TaskSettingsNormalizer(exampleSettingsNormalizer)
-const taskProvider = new TaskProvider(taskSettingsManager)
 
 export class AppState {
     public page: Page = Page.Solve
-    public example: Example = this.getActualOrNewExample()
     public isRight: boolean | null = null
-    public readonly task = this.getCurrentOrNewTask()
-    public readonly ratingGenerator = new RatingGenerator()
-    public readonly taskSettingsManager = new TaskSettingsManager(taskSettingsNormalizer, profileProvider)
+        public readonly ratingGenerator = new RatingGenerator()
     public readonly profileProvider = new ProfileProvider(exampleSettingsNormalizer)
-
+    public readonly taskSettingsManager = new TaskSettingsManager(taskSettingsNormalizer, this.profileProvider)
+    public  readonly taskProvider = new TaskProvider(this.taskSettingsManager)
+        public readonly task = this.taskProvider.getCurrentOrNewTask()
+    public example: Example = this.getActualOrNewExample()
+    
     public constructor() {
         makeAutoObservable(this)
     }
 
     public startNewTask(): void {
-        taskProvider.cleanCurrentTask()
+        this.taskProvider.cleanCurrentTask()
         this.openPage(Page.Solve)
     }
 
@@ -84,12 +82,8 @@ export class AppState {
         this.isRight = null
     }
 
-    private getCurrentOrNewTask(): Task {
-        return taskProvider.getCurrentOrNewTask();
-    }
-
-    private getActualOrNewExample(): Example {
-        return exampleProvider.getActualOrNewExample(this.getCurrentOrNewTask())
+        private getActualOrNewExample(): Example {
+        return exampleProvider.getActualOrNewExample(this.taskProvider.getCurrentOrNewTask())
     }
 
     public getCurrentTaskSettings(): TaskSettings {
