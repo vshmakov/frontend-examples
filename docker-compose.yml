@@ -4,8 +4,8 @@ services:
     node:
         image: node:14
         volumes:
-            - .:/var/www
-        working_dir: /var/www
+            - .:/code
+        working_dir: /code
         entrypoint: npm start
         ports:
             - 3001:3000

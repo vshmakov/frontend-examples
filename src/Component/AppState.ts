@@ -37,13 +37,13 @@ const taskSettingsNormalizer = new TaskSettingsNormalizer(exampleSettingsNormali
 const profileProvider = new ProfileProvider(exampleSettingsNormalizer)
 const taskSettingsManager = new TaskSettingsManager(taskSettingsNormalizer, profileProvider)
 const taskProvider = new TaskProvider(taskSettingsManager)
-const ratingGenerator = new RatingGenerator()
 
 export class AppState {
     public page: Page = Page.Solve
     public example: Example = this.getActualOrNewExample()
     public isRight: boolean | null = null
     public readonly task = this.getCurrentOrNewTask()
+public  readonly ratingGenerator = new RatingGenerator()
 
     public constructor() {
         makeAutoObservable(this)

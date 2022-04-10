@@ -4,6 +4,7 @@ import {TaskResult} from "./TaskResult";
 import {TaskConfig} from "./TaskConfig";
 import {observer} from "mobx-react";
 import {AppStateProps} from "./AppStateProps";
+import {Page} from "./Page";
 
 export const App = observer(({appState}: AppStateProps): ReactElement => {
         const router = {
