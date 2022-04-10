@@ -11,12 +11,12 @@ import {ExampleSettingsNormalizer} from "../Example/ExampleSettingsNormalizer";
 import {TaskSettingsNormalizer} from "../Task/TaskSettingsNormalizer";
 import {ProfileProvider} from "../Example/ProfileProvider";
 import {TaskSettingsManager} from "../Task/TaskSettingsManager";
-import {TaskProvider} from "../Task/TaskProvider";
 import {RatingGenerator} from "../Task/RatingGenerator";
 import {Page} from "./Page";
 import {Example} from "../Example/Example";
 import {sleep} from "../sleep";
 import {TaskSettings} from "../Task/TaskSettings";
+import {Task} from "../Task/Task";
 
 const addGenerator = new AddGenerator()
 const multGenerator = new MultGenerator()
@@ -39,17 +39,17 @@ export class AppState {
     public readonly ratingGenerator = new RatingGenerator()
     public readonly profileProvider = new ProfileProvider(exampleSettingsNormalizer)
     public readonly taskSettingsManager = new TaskSettingsManager(taskSettingsNormalizer, this.profileProvider)
-    public readonly taskProvider = new TaskProvider()
     public readonly taskSettings = this.getCurrentTaskSettings()
-    public readonly task = this.taskProvider.getCurrentOrNewTask(this.taskSettings)
-    public example: Example = this.getActualOrNewExample()
+    public task = new Task(this.taskSettings)
+    public example: Example = exampleProvider.getActualOrNewExample(this.task)
 
     public constructor() {
         makeAutoObservable(this)
     }
 
     public startNewTask(): void {
-        this.taskProvider.cleanCurrentTask()
+        this.task = new Task(this.taskSettings)
+        this.example = exampleProvider.getActualOrNewExample(this.task)
         this.openPage(Page.Solve)
     }
 
@@ -76,14 +76,10 @@ export class AppState {
             return
         }
 
-        this.example = this.getActualOrNewExample()
+        this.example = exampleProvider.getActualOrNewExample(this.task)
         this.isRight = example.isSolved
         await sleep(1000)
         this.isRight = null
-    }
-
-    private getActualOrNewExample(): Example {
-        return exampleProvider.getActualOrNewExample(this.task)
     }
 
     private getCurrentTaskSettings(): TaskSettings {
