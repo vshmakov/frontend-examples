@@ -1,4 +1,4 @@
-import React, {ReactElement, useState} from "react";
+import React, {ReactElement} from "react";
 import {StartNewTaskButton} from "./StartNewTaskButton";
 import {OperationSettings} from "./OperationSettings";
 import {Operation} from "../Example/Operation";

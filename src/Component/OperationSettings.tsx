@@ -31,19 +31,21 @@ export const OperationSettings = observer(({
         <div className={css.settings_container}>
             <div className={css.operation_checkboxes_list}>
                 {operations.map((operation: Operation): ReactElement =>
-                    <OperationCheckbox taskSettings={taskSettings} operation={operation}/>)}
+                    <OperationCheckbox taskSettings={taskSettings} operation={operation} key={operation}/>)}
             </div>
             <form>
                 {profiles.map((profile: Profile): ReactElement => <ProfileRadio profile={profile}
                                                                                 isDisabled={isDisabled}
-                                                                                exampleSettings={exampleSettings}/>)}
+                                                                                exampleSettings={exampleSettings}
+                                                                                key={profile.name}/>)}
             </form>
             <div className={`${css.settings} ${!isSettingsOpened ? "" : css.settings_opened}`}>
                 <button className={css.settings_btn} onClick={(): void => setSettingsOpened(!isSettingsOpened)}>
                     Детальные настройки
                     <OpenSettingsSvg isSettingsOpened={isSettingsOpened}/>
                 </button>
-                {isSettingsOpened ? <DetailedSettings exampleSettings={exampleSettings} isDisabled={isDisabled}/> : null}
+                {isSettingsOpened ?
+                    <DetailedSettings exampleSettings={exampleSettings} isDisabled={isDisabled}/> : null}
             </div>
         </div>
     )

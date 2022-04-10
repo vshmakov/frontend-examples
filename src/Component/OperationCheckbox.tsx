@@ -1,5 +1,4 @@
 import {observer} from "mobx-react";
-import {TaskSettings} from "../Task/TaskSettings";
 import {Operation} from "../Example/Operation";
 import React, {ReactElement} from "react";
 import css from "./OperationSettings.module.css";

@@ -16,7 +16,6 @@ import {RatingGenerator} from "../Task/RatingGenerator";
 import {Page} from "./Page";
 import {Example} from "../Example/Example";
 import {sleep} from "../sleep";
-import {Task} from "../Task/Task";
 import {TaskSettings} from "../Task/TaskSettings";
 
 const addGenerator = new AddGenerator()
@@ -37,13 +36,13 @@ const taskSettingsNormalizer = new TaskSettingsNormalizer(exampleSettingsNormali
 export class AppState {
     public page: Page = Page.Solve
     public isRight: boolean | null = null
-        public readonly ratingGenerator = new RatingGenerator()
+    public readonly ratingGenerator = new RatingGenerator()
     public readonly profileProvider = new ProfileProvider(exampleSettingsNormalizer)
     public readonly taskSettingsManager = new TaskSettingsManager(taskSettingsNormalizer, this.profileProvider)
-    public  readonly taskProvider = new TaskProvider(this.taskSettingsManager)
-        public readonly task = this.taskProvider.getCurrentOrNewTask()
+    public readonly taskProvider = new TaskProvider(this.taskSettingsManager)
+    public readonly task = this.taskProvider.getCurrentOrNewTask()
     public example: Example = this.getActualOrNewExample()
-    
+
     public constructor() {
         makeAutoObservable(this)
     }
@@ -82,7 +81,7 @@ export class AppState {
         this.isRight = null
     }
 
-        private getActualOrNewExample(): Example {
+    private getActualOrNewExample(): Example {
         return exampleProvider.getActualOrNewExample(this.taskProvider.getCurrentOrNewTask())
     }
 
